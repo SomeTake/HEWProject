@@ -15,12 +15,8 @@
 #define CHARA_XFILE			("data/MODEL/Boy.x")
 #define FIRST_PLAYER_POS	D3DXVECTOR3(0.0f, 0.0f, 0.0f)	// 初期位置
 
-#define	VALUE_MOVE		(1.00f)											// 移動量
 #define VALUE_FRONTWALK	(1.50f)											// 前歩き移動量
-#define VALUE_BACKWALK	(1.00f)											// 後ろ歩き移動量
-#define	VALUE_ROTATE	(D3DX_PI * 0.80f)								// 回転量
-#define VALUE_ENLARGEMENT	(0.1f)										// 拡大・縮小量
-#define	VALUE_ROTATE_MODEL	(D3DX_PI * 0.05f)							// 回転速度
+#define	VALUE_SIDESTEP	(1.00f)											// 回転量
 #define VALUE_HALF		(0.5f)											// 何らかの値を半分にするために掛ける
 
 //*****************************************************************************

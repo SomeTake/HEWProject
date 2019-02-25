@@ -261,12 +261,12 @@ void ControlPlayer(void)
 			playerWk.Animation->ChangeAnimation(playerWk.Animation, Frontwalk, Data[Frontwalk].Spd);
 		}
 		// 右ステップ
-		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN))
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP))
 		{
 			playerWk.Animation->ChangeAnimation(playerWk.Animation, Rightstep, Data[Rightstep].Spd);
 		}
 		// 左ステップ
-		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP))
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN))
 		{
 			playerWk.Animation->ChangeAnimation(playerWk.Animation, Leftstep, Data[Leftstep].Spd);
 		}
@@ -283,7 +283,7 @@ void ControlPlayer(void)
 		}
 		break;
 	case Rightstep:
-		if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN))
+		if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP))
 		{
 		}
 		// キーリリースで待機に戻る
@@ -293,7 +293,7 @@ void ControlPlayer(void)
 		}
 		break;
 	case Leftstep:
-		if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP))
+		if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN))
 		{
 		}
 		// キーリリースで待機に戻る
@@ -320,20 +320,15 @@ void MovePlayer(void)
 		playerWk.move.x -= sinf(playerWk.rot.y) * VALUE_FRONTWALK;
 		playerWk.move.z -= cosf(playerWk.rot.y) * VALUE_FRONTWALK;
 		break;
-		// 後移動中の座標処理
-	case Backwalk:
-			playerWk.move.x -= sinf(playerWk.rot.y + D3DX_PI) * VALUE_BACKWALK;
-			playerWk.move.z -= cosf(playerWk.rot.y + D3DX_PI) * VALUE_BACKWALK;
-		break;
 		// 手前移動中の座標処理
 	case Rightstep:
-		playerWk.move.x -= sinf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
-		playerWk.move.z -= cosf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
+		playerWk.move.x -= sinf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_SIDESTEP;
+		playerWk.move.z -= cosf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_SIDESTEP;
 		break;
 		// 奥移動中の座標処理
 	case Leftstep:
-		playerWk.move.x -= sinf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
-		playerWk.move.z -= cosf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
+		playerWk.move.x -= sinf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_SIDESTEP;
+		playerWk.move.z -= cosf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_SIDESTEP;
 		break;
 	default:
 		break;
