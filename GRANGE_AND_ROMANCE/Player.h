@@ -13,7 +13,7 @@
 // マクロ定義
 //*****************************************************************************
 #define CHARA_XFILE			("data/MODEL/Boy.x")
-#define FIRST_PLAYER_POS	D3DXVECTOR3(50.0f, 0.0f, 0.0f)	// 初期位置
+#define FIRST_PLAYER_POS	D3DXVECTOR3(0.0f, 0.0f, 0.0f)	// 初期位置
 
 #define	VALUE_MOVE		(1.00f)											// 移動量
 #define VALUE_FRONTWALK	(1.50f)											// 前歩き移動量
@@ -36,6 +36,7 @@ typedef struct {
 	int					SP;					// SPゲージ
 	int					HPzan;				// 残り体力
 	D3DXANIMATION		*Animation;			// アニメーション
+	bool				reverse;			// 向き反転フラグ
 }CHARA;
 
 // キャラクターのアニメーション番号
@@ -129,6 +130,7 @@ void UninitPlayer(void);
 void UpdatePlayer(void);
 void DrawPlayer(void);
 CHARA *GetPlayer(void);
+void ControlPlayer(void);		// 操作
 void MovePlayer(void);			// 座標移動
 
 #endif

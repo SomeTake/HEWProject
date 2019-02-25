@@ -5,6 +5,10 @@
 //
 //=============================================================================
 #include "Main.h"
+#include "Camera.h"
+#include "Input.h"
+#include "Light.h"
+#include "Player.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -305,10 +309,10 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 #endif
 
 	// 入力処理の初期化
-	//InitInput(hInstance, hWnd);
-	//InitCamera();
-	//InitLight();
-	//InitPlayer(0);
+	InitInput(hInstance, hWnd);
+	InitCamera();
+	InitLight();
+	InitPlayer(0);
 
 	return S_OK;
 }
@@ -338,11 +342,11 @@ void Uninit(void)
 		g_pD3D = NULL;
 	}
 
-	//// 入力処理の終了処理
-	//UninitInput();
+	// 入力処理の終了処理
+	UninitInput();
 
-	//// モデルの終了処理
-	//UninitPlayer();
+	// モデルの終了処理
+	UninitPlayer();
 
 }
 
@@ -356,9 +360,9 @@ void Update(void)
 
 #endif
 
-	//UpdateInput();
-	//UpdateCamera();
-	//UpdatePlayer();
+	UpdateInput();
+	UpdateCamera();
+	UpdatePlayer();
 
 }
 
@@ -373,8 +377,8 @@ void Draw(void)
 	// Direct3Dによる描画の開始
 	if (SUCCEEDED(g_pD3DDevice->BeginScene()))
 	{
-		//SetCamera();
-		//DrawPlayer();
+		SetCamera(0);
+		DrawPlayer();
 
 		// Direct3Dによる描画の終了
 		g_pD3DDevice->EndScene();

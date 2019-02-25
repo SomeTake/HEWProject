@@ -25,8 +25,8 @@ CAMERA cameraWk[MAX_SEPARATE];
 //=============================================================================
 void InitCamera(void)
 {
-	cameraWk->pos = D3DXVECTOR3(POS_X_CAM, POS_Y_CAM, POS_Z_CAM);
-	cameraWk->at = cameraWk->pos + D3DXVECTOR3(AT_X_CAM, AT_Y_CAM, AT_Z_CAM);
+	cameraWk->at = D3DXVECTOR3(AT_X_CAM, AT_Y_CAM, AT_Z_CAM);
+	cameraWk->pos = cameraWk->at + D3DXVECTOR3(POS_X_CAM, POS_Y_CAM, POS_Z_CAM);
 
 	cameraWk->up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	cameraWk->rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);

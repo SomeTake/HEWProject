@@ -38,6 +38,7 @@ HRESULT InitPlayer(int type)
 	playerWk.HP = 0;
 	playerWk.HPzan = playerWk.HP;
 	playerWk.SP = 0;
+	playerWk.reverse = false;
 
 	if (type == 0)
 	{
@@ -169,11 +170,24 @@ void UninitPlayer(void)
 //=============================================================================
 void UpdatePlayer(void)
 {
-		// アニメーションを更新
-		playerWk.Animation->UpdateAnimation(playerWk.Animation, TIME_PER_FRAME);
+	// アニメーションを更新
+	playerWk.Animation->UpdateAnimation(playerWk.Animation, TIME_PER_FRAME);
 
-		// 座標移動
-		MovePlayer();
+	// 向き制御
+	if (playerWk.reverse == false)
+	{
+		playerWk.rot.y = D3DX_PI * VALUE_HALF;
+	}
+	else if(playerWk.reverse == true)
+	{
+		playerWk.rot.y = D3DX_PI * -VALUE_HALF;
+	}
+
+	// キャラクターのアニメーション変更
+	ControlPlayer();
+
+	// 座標移動
+	MovePlayer();
 }
 
 //=============================================================================
@@ -223,6 +237,77 @@ CHARA *GetPlayer(void)
 }
 
 //=============================================================================
+//操作＆アニメーション変更
+//=============================================================================
+void ControlPlayer(void)
+{
+	// 向きの変更
+	if (playerWk.reverse == false)
+	{
+		if (GetKeyboardTrigger(DIK_LEFT)) playerWk.reverse = true;
+	}
+	else if (playerWk.reverse == true)
+	{
+		if (GetKeyboardTrigger(DIK_RIGHT)) playerWk.reverse = false;
+	}
+
+	// アニメーションの変更
+	switch (playerWk.Animation->CurrentAnimID)
+	{
+	case Idle:
+		// 前進
+		if (GetKeyboardPress(playerWk.reverse == false ? DIK_RIGHT : DIK_LEFT))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Frontwalk, Data[Frontwalk].Spd);
+		}
+		// 右ステップ
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Rightstep, Data[Rightstep].Spd);
+		}
+		// 左ステップ
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Leftstep, Data[Leftstep].Spd);
+		}
+		break;
+	case Frontwalk:
+		if (GetKeyboardPress(playerWk.reverse == false ? DIK_RIGHT : DIK_LEFT))
+		{
+
+		}
+		// キーリリースで待機に戻る
+		else
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+		}
+		break;
+	case Rightstep:
+		if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN))
+		{
+		}
+		// キーリリースで待機に戻る
+		else
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+		}
+		break;
+	case Leftstep:
+		if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP))
+		{
+		}
+		// キーリリースで待機に戻る
+		else
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+//=============================================================================
 //座標移動
 //=============================================================================
 void MovePlayer(void)
@@ -242,13 +327,13 @@ void MovePlayer(void)
 		break;
 		// 手前移動中の座標処理
 	case Rightstep:
-		playerWk.move.x -= sinf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
-		playerWk.move.z -= cosf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
+		playerWk.move.x -= sinf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
+		playerWk.move.z -= cosf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
 		break;
 		// 奥移動中の座標処理
 	case Leftstep:
-		playerWk.move.x -= sinf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
-		playerWk.move.z -= cosf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
+		playerWk.move.x -= sinf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
+		playerWk.move.z -= cosf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_ROTATE;
 		break;
 	default:
 		break;
