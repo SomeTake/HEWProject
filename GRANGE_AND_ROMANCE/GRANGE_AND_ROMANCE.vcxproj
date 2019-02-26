@@ -23,12 +23,20 @@
     <ClCompile Include="CAllocateHierarchy.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="D3DXAnimation.cpp" />
+    <ClCompile Include="Ending.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Opening.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\source\repos\HEW\Ending.h" />
+    <ClInclude Include="..\..\..\..\..\source\repos\HEW\Game.h" />
+    <ClInclude Include="..\..\..\..\..\source\repos\HEW\Opening.h" />
+    <ClInclude Include="..\..\..\..\..\source\repos\HEW\Title.h" />
     <ClInclude Include="AnimationModel.h" />
     <ClInclude Include="CAllocateHierarchy.h" />
     <ClInclude Include="Camera.h" />
