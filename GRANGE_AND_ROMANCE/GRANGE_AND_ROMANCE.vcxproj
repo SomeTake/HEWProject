@@ -33,18 +33,18 @@
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\source\repos\HEW\Ending.h" />
-    <ClInclude Include="..\..\..\..\..\source\repos\HEW\Game.h" />
-    <ClInclude Include="..\..\..\..\..\source\repos\HEW\Opening.h" />
-    <ClInclude Include="..\..\..\..\..\source\repos\HEW\Title.h" />
     <ClInclude Include="AnimationModel.h" />
     <ClInclude Include="CAllocateHierarchy.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="D3DXAnimation.h" />
+    <ClInclude Include="Ending.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="Opening.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -34,7 +34,7 @@ typedef struct	// タイトル構造体
 	D3DXVECTOR3		col;						// ポリゴンの色彩量
 	int				PatternAnim;				// アニメーションパターンナンバー
 	int				CountAnim;					// アニメーションカウント
-	int				Alpha;
+	float			Alpha;
 	float			Radius;						// titleの半径
 	float			BaseAngle;					// titleの角度
 	LPDIRECT3DTEXTURE9	Texture;				// テクスチャ情報

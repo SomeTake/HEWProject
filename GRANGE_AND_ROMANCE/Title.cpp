@@ -110,10 +110,10 @@ HRESULT MakeVertexTitle(void)
 	title->VertexWkTitle[3].diffuse = D3DCOLOR_RGBA(255, 255, 255, 255);
 
 	// テクスチャ座標の設定
-	title->VvertexWkTitle[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-	title->VvertexWkTitle[1].tex = D3DXVECTOR2(1.0f / TEXTURE_PATTERN_DIVIDE_X_TITLE, 0.0f);
-	title->VvertexWkTitle[2].tex = D3DXVECTOR2(0.0f, 1.0f / TEXTURE_PATTERN_DIVIDE_Y_TITLE);
-	title->VvertexWkTitle[3].tex = D3DXVECTOR2(1.0f / TEXTURE_PATTERN_DIVIDE_X_TITLE, 1.0f / TEXTURE_PATTERN_DIVIDE_Y_TITLE);
+	title->VertexWkTitle[0].tex = D3DXVECTOR2(0.0f, 0.0f);
+	title->VertexWkTitle[1].tex = D3DXVECTOR2(1.0f / TEXTURE_PATTERN_DIVIDE_X_TITLE, 0.0f);
+	title->VertexWkTitle[2].tex = D3DXVECTOR2(0.0f, 1.0f / TEXTURE_PATTERN_DIVIDE_Y_TITLE);
+	title->VertexWkTitle[3].tex = D3DXVECTOR2(1.0f / TEXTURE_PATTERN_DIVIDE_X_TITLE, 1.0f / TEXTURE_PATTERN_DIVIDE_Y_TITLE);
 
 	return S_OK;
 }
