@@ -12,7 +12,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	TEXTURE_OPENING		("data/TEXTURE/enter.png")				// 読み込むテクスチャファイル名
+#define	TEXTURE_OPENING		("data/TEXTURE/enter2.png")				// 読み込むテクスチャファイル名
 #define	OPENING_SIZE_X		(800)									// オープニングの幅
 #define	OPENING_SIZE_Y		(600)									// オープニングの高さ
 #define OPENING_MAX			(1)										// オープニングの最大数

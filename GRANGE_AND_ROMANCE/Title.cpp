@@ -33,8 +33,8 @@ HRESULT InitTitle(void)
 	title->use = true;
 	title->Texture = pD3DTextureTitle;								// テクスチャ情報
 	D3DXVECTOR2 temp = D3DXVECTOR2(TITLE_SIZE_X, TITLE_SIZE_Y);
-	title->Radius = D3DXVec2Length(&temp);							// titleの半径を初期化
-	title->BaseAngle = atan2f(TITLE_SIZE_Y, TITLE_SIZE_X);			// titleの角度を初期化
+	title->Radius = D3DXVec2Length(&temp);							// タイトルの半径を初期化
+	title->BaseAngle = atan2f(TITLE_SIZE_Y, TITLE_SIZE_X);			// タイトルの角度を初期化
 	title->PatternAnim = 0;											// アニメパターン番号を初期化
 	title->CountAnim = 0;											// アニメカウントを初期化
 																	// 頂点情報の作成
