@@ -12,11 +12,11 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define CHARA_XFILE			("data/MODEL/Boy.x")
+#define CHARA_XFILE			("data/MODEL/Girl.x")
 #define FIRST_PLAYER_POS	D3DXVECTOR3(0.0f, 0.0f, 0.0f)	// 初期位置
 
 #define VALUE_FRONTWALK	(1.50f)											// 前歩き移動量
-#define	VALUE_SIDESTEP	(1.00f)											// 回転量
+#define	VALUE_SIDESTEP	(1.00f)											// 横歩き移動量
 #define VALUE_HALF		(0.5f)											// 何らかの値を半分にするために掛ける
 
 //*****************************************************************************
@@ -33,61 +33,51 @@ typedef struct {
 	int					HPzan;				// 残り体力
 	D3DXANIMATION		*Animation;			// アニメーション
 	bool				reverse;			// 向き反転フラグ
+	bool				HitFrag;			// 攻撃が当たったかどうか判定するフラグ
+	bool				UseItem;			// アイテムを所持しているかどうか判定するフラグ
 }CHARA;
 
 // キャラクターのアニメーション番号
 static const char* CharaStateAnim[] =
 {
 	"idle",				// 待機
-	"frontwalk",		// 前歩き
-	"backwalk",			// 後ろ歩き
-	"rightstep",		// 横移動
-	"leftstep",			// 横移動
-	"guard",			// ガード めっちゃ胸反る
-	"damage",			// ダメージ受けた
-	"down",				// ダウン
-	"downpose",			// ダウン状態
-	"getup",			// 起き上がり
-	"punchi",			// パンチ
+	"walk",				// 前歩き
+	"rightwalk",		// 横移動
+	"leftwalk",			// 横移動
+	"jab",				// パンチ1
+	"straight",			// パンチ2
+	"upper",			// パンチ3
 	"kick",				// キック
-	"hadou",			// 波動拳。やたら発生が遅い
-	"shoryu",			// 昇竜拳。バックフリップ
-	"SPattack",			// SP技。めっちゃ回転する
-	"throw",			// 投げ。掴んで膝入れてアッパー
-	"win",				// ガッツポーズ（勝利時）
-	"miss",				// 投げスカり
-	"throwedpose"		// 投げられている最中のポーズ
+	"pickup",			// アイテムを拾う
+	"idleitem",			// 待機（アイテム所持時）
+	"attackitem",		// 攻撃（アイテム所持時）
+	"throwitem",		// アイテムを投げる
+	"reaction"			// 被ダメージ
 };
 
 // キャラクターのアニメーション番号と連動（CharaStateAnim）
 enum CharaStateNum
 {
 	Idle,
-	Frontwalk,
-	Backwalk,
-	Rightstep,
-	Leftstep,
-	Guard,
-	Damage,
-	Down,
-	Downpose,
-	Getup,
-	Punchi,
+	Walk,
+	Rightwalk,
+	Leftwalk,
+	Jab,
+	Straight,
+	Upper,
 	Kick,
-	Hadou,
-	Shoryu,
-	SPattack,
-	Throw,
-	Win,
-	Miss,
-	ThrowedPose,
+	Pickup,
+	Idleitem,
+	Attackitem,
+	Throwitem,
+	Reaction,
 	AnimMax,			// アニメーションの最大数
 };
 
 // バトル用データ構造体
 typedef struct
 {
-	int Damage;					// そのモーションによって与えるダメージ量（SPゲージ、スコアなども）
+	int Damage;					// そのモーションによって与えるダメージ量
 	float Spd;					// アニメーションを再生するスピード
 	float ShiftTime;			// アニメーションの切り替え時間
 	int CollisionStartTime;		// 攻撃当たり判定の発生する時間
@@ -96,25 +86,19 @@ typedef struct
 
 // バトル用データ構造体配列
 static BATTLEDATA Data[AnimMax] = {
-	{ 0, 1.5f, 0.1f, 0, 0 },		// Idle
-{ 0, 2.0f, 0.1f, 0, 0 },		// Frontwalk
-{ 0, 2.0f, 0.1f, 0, 0 },		// Backwalk
-{ 0, 2.0f, 0.1f, 0, 0 },		// Rightstep
-{ 0, 2.0f, 0.1f, 0, 0 },		// Leftstep
-{ 0, 1.0f, 0.1f, 0, 0 },		// Guard
-{ 0, 1.5f, 0.1f, 0, 0 },		// Damage
-{ 0, 1.5f, 0.1f, 0, 0 },		// Down
-{ 0, 1.0f, 0.1f, 0, 0 },		// Downpose
-{ 0, 1.5f, 0.1f, 0, 0 },		// Getup
-{ 40, 2.5f, 0.1f, 0, 0 },		// Punchi
-{ 50, 2.5f, 0.1f, 0, 0 },		// Kick
-{ 100, 3.0f, 0.1f, 0, 0 },		// Hadou
-{ 120, 2.0f, 0.1f, 0, 0 },		// Shoryu
-{ 400, 1.5f, 0.1f, 0, 0 },		// SPattack
-{ 150, 1.0f, 0.1f, 0, 0 },		// Throw
-{ 0, 2.0f, 0.1f, 0, 0 },		// Win
-{ 0, 1.5f, 0.1f, 0, 0 },		// Miss
-{ 0, 1.0f, 0.1f, 0, 0 },		// Throwpose
+	{ 0, 1.0f, 0.1f, 0, 0 },		// Idle
+{ 0, 1.0f, 0.1f, 0, 0 },		// Walk
+{ 0, 1.0f, 0.1f, 0, 0 },		// Rightwalk
+{ 0, 1.0f, 0.1f, 0, 0 },		// Leftwalk
+{ 0, 1.0f, 0.1f, 0, 0 },		// Jab
+{ 0, 1.0f, 0.1f, 0, 0 },		// Straight
+{ 0, 1.0f, 0.1f, 0, 0 },		// Upper
+{ 0, 1.0f, 0.1f, 0, 0 },		// Kick
+{ 0, 1.0f, 0.1f, 0, 0 },		// Pickup
+{ 0, 1.0f, 0.1f, 0, 0 },		// Idleitem
+{ 0, 1.0f, 0.1f, 0, 0 },		// Attackitem
+{ 0, 1.0f, 0.1f, 0, 0 },		// Throwitem
+{ 0, 1.0f, 0.1f, 0, 0 },		// Reaction
 };
 
 
