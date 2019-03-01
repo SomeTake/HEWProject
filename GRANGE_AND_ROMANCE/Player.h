@@ -13,11 +13,13 @@
 // マクロ定義
 //*****************************************************************************
 #define CHARA_XFILE			("data/MODEL/Girl.x")
+#define PLAYER_NUM		(2)									// プレイヤーの数
+
 #define FIRST_PLAYER_POS	D3DXVECTOR3(0.0f, 0.0f, 0.0f)	// 初期位置
 
-#define VALUE_FRONTWALK	(1.50f)											// 前歩き移動量
-#define	VALUE_SIDESTEP	(1.00f)											// 横歩き移動量
-#define VALUE_HALF		(0.5f)											// 何らかの値を半分にするために掛ける
+#define VALUE_FRONTWALK	(1.50f)								// 前歩き移動量
+#define	VALUE_SIDESTEP	(1.00f)								// 横歩き移動量
+#define VALUE_HALF		(0.5f)								// 何らかの値を半分にするために掛ける
 
 //*****************************************************************************
 // グローバル変数
@@ -109,8 +111,8 @@ HRESULT InitPlayer(int type);
 void UninitPlayer(void);
 void UpdatePlayer(void);
 void DrawPlayer(void);
-CHARA *GetPlayer(void);
-void ControlPlayer(void);		// 操作
-void MovePlayer(void);			// 座標移動
+CHARA *GetPlayer(int pn);
+void ControlPlayer(int pn);		// 操作
+void MovePlayer(int pn);		// 座標移動
 
 #endif
