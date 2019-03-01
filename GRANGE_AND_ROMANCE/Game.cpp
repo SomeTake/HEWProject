@@ -46,5 +46,5 @@ void DrawGame(void)
 {
 	// ƒvƒŒƒCƒ„[•`‰æ
 	DrawPlayer();
-
 }
+
