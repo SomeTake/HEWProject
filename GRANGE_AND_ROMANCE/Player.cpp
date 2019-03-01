@@ -52,82 +52,71 @@ HRESULT InitPlayer(int type)
 		}
 
 		// AnimationCallbackをセットする
-		// 前歩き
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Frontwalk])))
+		// 移動
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Walk])))
 		{
 			return E_FAIL;
 		}
-		// 後ろ歩き
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Backwalk])))
+
+		// 右移動
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Rightwalk])))
 		{
 			return E_FAIL;
 		}
-		// 横移動
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Rightstep])))
+
+		// 左移動
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Leftwalk])))
 		{
 			return E_FAIL;
 		}
-		// 横移動
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Leftstep])))
+
+		// ジャブ
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Jab])))
 		{
 			return E_FAIL;
 		}
-		// ダメージ
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Damage])))
+
+		// ストレート
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Straight])))
 		{
 			return E_FAIL;
 		}
-		// ダウン
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Down])))
+
+		// アッパー
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Upper])))
 		{
 			return E_FAIL;
 		}
-		// ダウンポーズ
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Downpose])))
-		{
-			return E_FAIL;
-		}
-		// 起き上がり
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Getup])))
-		{
-			return E_FAIL;
-		}
-		// パンチ
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Punchi])))
-		{
-			return E_FAIL;
-		}
+
 		// キック
 		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Kick])))
 		{
 			return E_FAIL;
 		}
-		// 波動
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Hadou])))
-		{
-			return E_FAIL;
-		}
-		// 昇竜
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Shoryu])))
-		{
-			return E_FAIL;
-		}
-		// SP技
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[SPattack])))
-		{
-			return E_FAIL;
-		}
-		// 投げ
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Throw])))
-		{
-			return E_FAIL;
-		}
-		// 投げスカり
-		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Miss])))
+
+		// アイテムを拾う
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Pickup])))
 		{
 			return E_FAIL;
 		}
 
+		// 攻撃（アイテム所持）
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Attackitem])))
+		{
+			return E_FAIL;
+		}
+
+		// アイテムを投げる
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Throwitem])))
+		{
+			return E_FAIL;
+		}
+
+		// 被ダメージ
+		if (FAILED(SetupCallbackKeyframes(playerWk.Animation, CharaStateAnim[Reaction])))
+		{
+			return E_FAIL;
+		}
 
 		// AnimationSetを初期化する
 		for (int i = 0; i < playerWk.Animation->AnimSetNum; i++)
@@ -241,65 +230,344 @@ CHARA *GetPlayer(void)
 //=============================================================================
 void ControlPlayer(void)
 {
-	// 向きの変更
-	if (playerWk.reverse == false)
+	// 攻撃中などの状態では向き変更ができない
+	if (playerWk.Animation->CurrentAnimID != Jab && playerWk.Animation->CurrentAnimID != Straight
+		&& playerWk.Animation->CurrentAnimID != Upper && playerWk.Animation->CurrentAnimID != Kick
+		&& playerWk.Animation->CurrentAnimID != Attackitem && playerWk.Animation->CurrentAnimID != Throwitem
+		&& playerWk.Animation->CurrentAnimID != Pickup)
 	{
-		if (GetKeyboardTrigger(DIK_LEFT)) playerWk.reverse = true;
-	}
-	else if (playerWk.reverse == true)
-	{
-		if (GetKeyboardTrigger(DIK_RIGHT)) playerWk.reverse = false;
+		// 向きの変更
+		if (playerWk.reverse == false)
+		{
+			if (GetKeyboardPress(DIK_LEFT) || IsButtonPressed(0, BUTTON_LEFT) || IsButtonPressed(0, STICK_LEFT))
+			{
+				playerWk.reverse = true;
+			}
+		}
+		else if (playerWk.reverse == true)
+		{
+			if (GetKeyboardPress(DIK_RIGHT) || IsButtonPressed(0, BUTTON_RIGHT) || IsButtonPressed(0, STICK_RIGHT))
+			{
+				playerWk.reverse = false;
+			}
+		}
 	}
 
 	// アニメーションの変更
 	switch (playerWk.Animation->CurrentAnimID)
 	{
 	case Idle:
-		// 前進
-		if (GetKeyboardPress(playerWk.reverse == false ? DIK_RIGHT : DIK_LEFT))
+		// ジャブ PS4□
+		if(GetKeyboardTrigger(DIK_J) || IsButtonTriggered(0, BUTTON_A))
 		{
-			playerWk.Animation->ChangeAnimation(playerWk.Animation, Frontwalk, Data[Frontwalk].Spd);
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Jab, Data[Jab].Spd);
+		}
+		// キック PS4×
+		else if (GetKeyboardTrigger(DIK_M) || IsButtonTriggered(0, BUTTON_B))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Kick, Data[Kick].Spd);
+		}
+		// アイテムを拾う PS4○
+		else if (GetKeyboardTrigger(DIK_N) || IsButtonTriggered(0, BUTTON_C))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Pickup, Data[Pickup].Spd);
+		}
+		// 前進
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_RIGHT : DIK_LEFT) 
+			|| IsButtonPressed(0, playerWk.reverse == false ? BUTTON_RIGHT : BUTTON_LEFT)
+			|| IsButtonPressed(0, playerWk.reverse == false ? STICK_RIGHT : STICK_LEFT))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Walk, Data[Walk].Spd);
 		}
 		// 右ステップ
-		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP))
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP)
+			|| IsButtonPressed(0, playerWk.reverse == false ? BUTTON_DOWN : BUTTON_UP)
+			|| IsButtonPressed(0, playerWk.reverse == false ? STICK_DOWN : STICK_UP))
 		{
-			playerWk.Animation->ChangeAnimation(playerWk.Animation, Rightstep, Data[Rightstep].Spd);
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Rightwalk, Data[Rightwalk].Spd);
 		}
 		// 左ステップ
-		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN))
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN)
+			|| IsButtonPressed(0, playerWk.reverse == false ? BUTTON_UP : BUTTON_DOWN)
+			|| IsButtonPressed(0, playerWk.reverse == false ? STICK_UP : STICK_DOWN))
 		{
-			playerWk.Animation->ChangeAnimation(playerWk.Animation, Leftstep, Data[Leftstep].Spd);
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Leftwalk, Data[Leftwalk].Spd);
 		}
 		break;
-	case Frontwalk:
-		if (GetKeyboardPress(playerWk.reverse == false ? DIK_RIGHT : DIK_LEFT))
+	case Walk:
+		// ジャブ PS4□
+		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(0, BUTTON_A))
+		{
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Attackitem, Data[Attackitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Jab, Data[Jab].Spd);
+			}
+		}
+		// キック PS4×
+		else if (GetKeyboardTrigger(DIK_M) || IsButtonTriggered(0, BUTTON_B))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Kick, Data[Kick].Spd);
+		}
+		// アイテムを拾うor投げる PS4○
+		else if (GetKeyboardTrigger(DIK_N) || IsButtonTriggered(0, BUTTON_C))
+		{
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Throwitem, Data[Throwitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Pickup, Data[Pickup].Spd);
+			}
+		}
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_RIGHT : DIK_LEFT)
+			|| IsButtonPressed(0, playerWk.reverse == false ? BUTTON_RIGHT : BUTTON_LEFT)
+			|| IsButtonPressed(0, playerWk.reverse == false ? STICK_RIGHT : STICK_LEFT))
 		{
 
 		}
 		// キーリリースで待機に戻る
 		else
 		{
-			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idleitem, Data[Idleitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			}
 		}
 		break;
-	case Rightstep:
-		if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP))
+	case Rightwalk:
+		// ジャブ PS4□
+		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(0, BUTTON_A))
+		{
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Attackitem, Data[Attackitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Jab, Data[Jab].Spd);
+			}
+		}
+		// キック PS4×
+		else if (GetKeyboardTrigger(DIK_M) || IsButtonTriggered(0, BUTTON_B))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Kick, Data[Kick].Spd);
+		}
+		// アイテムを拾うor投げる PS4○
+		else if (GetKeyboardTrigger(DIK_N) || IsButtonTriggered(0, BUTTON_C))
+		{
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Throwitem, Data[Throwitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Pickup, Data[Pickup].Spd);
+			}
+		}
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP)
+			|| IsButtonPressed(0, playerWk.reverse == false ? BUTTON_DOWN : BUTTON_UP)
+			|| IsButtonPressed(0, playerWk.reverse == false ? STICK_DOWN : STICK_UP))
 		{
 		}
 		// キーリリースで待機に戻る
 		else
 		{
-			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idleitem, Data[Idleitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			}
 		}
 		break;
-	case Leftstep:
-		if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN))
+	case Leftwalk:
+		// ジャブ PS4□
+		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(0, BUTTON_A))
+		{
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Attackitem, Data[Attackitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Jab, Data[Jab].Spd);
+			}
+		}
+		// キック PS4×
+		else if (GetKeyboardTrigger(DIK_M) || IsButtonTriggered(0, BUTTON_B))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Kick, Data[Kick].Spd);
+		}
+		// アイテムを拾うor投げる PS4○
+		else if (GetKeyboardTrigger(DIK_N) || IsButtonTriggered(0, BUTTON_C))
+		{
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Throwitem, Data[Throwitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Pickup, Data[Pickup].Spd);
+			}
+		}
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN)
+			|| IsButtonPressed(0, playerWk.reverse == false ? BUTTON_UP : BUTTON_DOWN)
+			|| IsButtonPressed(0, playerWk.reverse == false ? STICK_UP : STICK_DOWN))
 		{
 		}
 		// キーリリースで待機に戻る
 		else
 		{
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idleitem, Data[Idleitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			}
+		}
+		break;
+	case Jab:
+		// 攻撃ヒット時追加入力でストレート攻撃が出る
+		// ストレート PS4□
+		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(0, BUTTON_A))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Straight, Data[Straight].Spd);
+		}
+		// アニメーション終了で待機に戻る
+		if (playerWk.Animation->MotionEnd == true)
+		{
 			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			playerWk.HitFrag = false;
+		}
+		break;
+	case Straight:
+		// 攻撃ヒット時追加入力でアッパー攻撃が出る
+		// アッパー PS4□
+		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(0, BUTTON_A))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Upper, Data[Upper].Spd);
+		}
+
+		// アニメーション終了で待機に戻る
+		if (playerWk.Animation->MotionEnd == true)
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			playerWk.HitFrag = false;
+		}
+		break;
+	case Upper:
+		// アニメーション終了で待機に戻る
+		if (playerWk.Animation->MotionEnd == true)
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			playerWk.HitFrag = false;
+		}
+		break;
+	case Kick:
+		// アニメーション終了で待機に戻る
+		if (playerWk.Animation->MotionEnd == true)
+		{
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idleitem, Data[Idleitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			}
+			playerWk.HitFrag = false;
+		}
+		break;
+	case Pickup:
+		// アニメーション終了で待機に戻る
+		if (playerWk.Animation->MotionEnd == true)
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idleitem, Data[Idleitem].Spd);
+			playerWk.UseItem = true;
+			playerWk.HitFrag = false;
+		}
+		break;
+	case Idleitem:
+		// アイテム攻撃 PS4□
+		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(0, BUTTON_A))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Attackitem, Data[Attackitem].Spd);
+		}
+		// キック PS4×
+		else if (GetKeyboardTrigger(DIK_M) || IsButtonTriggered(0, BUTTON_B))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Kick, Data[Kick].Spd);
+		}
+		// アイテムを投げる PS4○
+		else if (GetKeyboardTrigger(DIK_N) || IsButtonTriggered(0, BUTTON_C))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Throwitem, Data[Throwitem].Spd);
+		}
+		// 前進
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_RIGHT : DIK_LEFT)
+			|| IsButtonPressed(0, playerWk.reverse == false ? BUTTON_RIGHT : BUTTON_LEFT)
+			|| IsButtonPressed(0, playerWk.reverse == false ? STICK_RIGHT : STICK_LEFT))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Walk, Data[Walk].Spd);
+		}
+		// 右ステップ
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_DOWN : DIK_UP)
+			|| IsButtonPressed(0, playerWk.reverse == false ? BUTTON_DOWN : BUTTON_UP)
+			|| IsButtonPressed(0, playerWk.reverse == false ? STICK_DOWN : STICK_UP))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Rightwalk, Data[Rightwalk].Spd);
+		}
+		// 左ステップ
+		else if (GetKeyboardPress(playerWk.reverse == false ? DIK_UP : DIK_DOWN)
+			|| IsButtonPressed(0, playerWk.reverse == false ? BUTTON_UP : BUTTON_DOWN)
+			|| IsButtonPressed(0, playerWk.reverse == false ? STICK_UP : STICK_DOWN))
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Leftwalk, Data[Leftwalk].Spd);
+		}
+		break;
+	case Attackitem:
+		// アニメーション終了で待機に戻る
+		if (playerWk.Animation->MotionEnd == true)
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idleitem, Data[Idleitem].Spd);
+			playerWk.HitFrag = false;
+		}
+		break;
+	case Throwitem:
+		// アニメーション終了で待機に戻る
+		if (playerWk.Animation->MotionEnd == true)
+		{
+			playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			playerWk.UseItem = false;
+			playerWk.HitFrag = false;
+		}
+		break;
+	case Reaction:
+		// アニメーション終了で待機に戻る
+		if (playerWk.Animation->MotionEnd == true)
+		{
+			if (playerWk.UseItem == true)
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idleitem, Data[Idleitem].Spd);
+			}
+			else
+			{
+				playerWk.Animation->ChangeAnimation(playerWk.Animation, Idle, Data[Idle].Spd);
+			}
+			playerWk.HitFrag = false;
 		}
 		break;
 	default:
@@ -316,17 +584,17 @@ void MovePlayer(void)
 	switch (playerWk.Animation->CurrentAnimID)
 	{
 		// 前移動中の座標処理
-	case Frontwalk:
+	case Walk:
 		playerWk.move.x -= sinf(playerWk.rot.y) * VALUE_FRONTWALK;
 		playerWk.move.z -= cosf(playerWk.rot.y) * VALUE_FRONTWALK;
 		break;
 		// 手前移動中の座標処理
-	case Rightstep:
+	case Rightwalk:
 		playerWk.move.x -= sinf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_SIDESTEP;
 		playerWk.move.z -= cosf(playerWk.rot.y + D3DX_PI * VALUE_HALF) * VALUE_SIDESTEP;
 		break;
 		// 奥移動中の座標処理
-	case Leftstep:
+	case Leftwalk:
 		playerWk.move.x -= sinf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_SIDESTEP;
 		playerWk.move.z -= cosf(playerWk.rot.y - D3DX_PI * VALUE_HALF) * VALUE_SIDESTEP;
 		break;
