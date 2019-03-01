@@ -87,18 +87,18 @@ typedef struct
 // バトル用データ構造体配列
 static BATTLEDATA Data[AnimMax] = {
 	{ 0, 1.0f, 0.1f, 0, 0 },		// Idle
-{ 0, 1.0f, 0.1f, 0, 0 },		// Walk
-{ 0, 1.0f, 0.1f, 0, 0 },		// Rightwalk
-{ 0, 1.0f, 0.1f, 0, 0 },		// Leftwalk
-{ 0, 1.0f, 0.1f, 0, 0 },		// Jab
-{ 0, 1.0f, 0.1f, 0, 0 },		// Straight
-{ 0, 1.0f, 0.1f, 0, 0 },		// Upper
-{ 0, 1.0f, 0.1f, 0, 0 },		// Kick
-{ 0, 1.0f, 0.1f, 0, 0 },		// Pickup
+{ 0, 1.5f, 0.1f, 0, 0 },		// Walk
+{ 0, 1.5f, 0.1f, 0, 0 },		// Rightwalk
+{ 0, 1.5f, 0.1f, 0, 0 },		// Leftwalk
+{ 0, 1.5f, 0.1f, 0, 0 },		// Jab
+{ 0, 1.5f, 0.1f, 0, 0 },		// Straight
+{ 0, 2.0f, 0.1f, 0, 0 },		// Upper
+{ 0, 1.5f, 0.1f, 0, 0 },		// Kick
+{ 0, 2.0f, 0.1f, 0, 0 },		// Pickup
 { 0, 1.0f, 0.1f, 0, 0 },		// Idleitem
-{ 0, 1.0f, 0.1f, 0, 0 },		// Attackitem
-{ 0, 1.0f, 0.1f, 0, 0 },		// Throwitem
-{ 0, 1.0f, 0.1f, 0, 0 },		// Reaction
+{ 0, 1.5f, 0.1f, 0, 0 },		// Attackitem
+{ 0, 1.5f, 0.1f, 0, 0 },		// Throwitem
+{ 0, 1.5f, 0.1f, 0, 0 },		// Reaction
 };
 
 
