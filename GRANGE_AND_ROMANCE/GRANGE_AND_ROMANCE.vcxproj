@@ -23,6 +23,7 @@
     <ClCompile Include="CAllocateHierarchy.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="D3DXAnimation.cpp" />
+    <ClCompile Include="Hit_Point_Gage.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="CAllocateHierarchy.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="D3DXAnimation.h" />
+    <ClInclude Include="Hit_Point_Gage.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Main.h" />
