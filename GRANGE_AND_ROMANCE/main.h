@@ -44,8 +44,8 @@
 
 #define MY_VERTEX_FVF  (D3DFVF_XYZ | D3DFVF_DIFFUSE)
 
-#define SCREEN_WIDTH	(1280)											// ウインドウの幅
-#define SCREEN_HEIGHT	(720)											// ウインドウの高さ
+#define SCREEN_WIDTH	(1920)											// ウインドウの幅
+#define SCREEN_HEIGHT	(1080)											// ウインドウの高さ
 #define SCREEN_CENTER_X	(SCREEN_WIDTH / 2)								// ウインドウの中心Ｘ座標
 #define SCREEN_CENTER_Y	(SCREEN_HEIGHT / 2)								// ウインドウの中心Ｙ座標
 
@@ -68,8 +68,42 @@
 #define GetMonitorRect(rc) SystemParametersInfo(SPI_GETWORKAREA, 0, rc, 0)	// モニター矩形
 
 //*****************************************************************************
+// 構造体定義
+//*****************************************************************************
+// 上記２Ｄポリゴン頂点フォーマットに合わせた構造体を定義
+typedef struct
+{
+	D3DXVECTOR3 vtx;		// 頂点座標
+	float rhw;				// テクスチャのパースペクティブコレクト用
+	D3DCOLOR diffuse;		// 反射光
+	D3DXVECTOR2 tex;		// テクスチャ座標
+} VERTEX_2D;
+
+// 上記３Ｄポリゴン頂点フォーマットに合わせた構造体を定義
+typedef struct
+{
+	D3DXVECTOR3 vtx;		// 頂点座標
+	D3DXVECTOR3 nor;		// 法線ベクトル
+	D3DCOLOR diffuse;		// 反射光
+	D3DXVECTOR2 tex;		// テクスチャ座標
+} VERTEX_3D;
+
+// 画面遷移定数
+enum E_STAGE
+{
+	STAGE_OPENING,
+	STAGE_TITLE,
+	STAGE_GAME,
+	STAGE_ENDING,
+	STAGE_MAX
+};
+
+//*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
 LPDIRECT3DDEVICE9 GetDevice(void);	// デバイスを取得する
+void SetStage(int stage);			// ステージの変更
+int GetStage(void);					// 現在のステージを取得
+void ReInit(void);					// 再初期化
 
 #endif

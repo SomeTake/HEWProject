@@ -9,12 +9,17 @@
 #include "Input.h"
 #include "Light.h"
 #include "Player.h"
+#include "Opening.h"
+#include "Title.h"
+#include "Game.h"
+#include "Ending.h"
+#include "Debugproc.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define CLASS_NAME		"AppClass"			// ウインドウのクラス名
-#define WINDOW_NAME		"BattleGym3D"		// ウインドウのキャプション名
+#define CLASS_NAME		"AppClass"					// ウインドウのクラス名
+#define WINDOW_NAME		"GRANGE_AND_ROMANCE"		// ウインドウのキャプション名
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -27,6 +32,7 @@ void Draw(void);
 #ifdef _DEBUG
 void DrawFPS(void);
 #endif
+int	g_nStage = STAGE_OPENING;						// ステージ番号
 bool SetWindowCenter(HWND hWnd);
 
 //*****************************************************************************
@@ -40,9 +46,9 @@ static LPD3DXFONT	g_pD3DXFont = NULL;				// フォントへのポインタ
 int					g_nCountFPS;					// FPSカウンタ
 #endif
 
-													//=============================================================================
-													// メイン関数
-													//=============================================================================
+//=============================================================================
+// メイン関数
+//=============================================================================
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	srand((unsigned)time(NULL));
@@ -312,7 +318,10 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	InitInput(hInstance, hWnd);
 	InitCamera();
 	InitLight();
-	InitPlayer(0);
+	InitOpening();
+	InitTitle();
+	InitGame();
+	InitEnding();
 
 	return S_OK;
 }
@@ -345,8 +354,17 @@ void Uninit(void)
 	// 入力処理の終了処理
 	UninitInput();
 
-	// モデルの終了処理
-	UninitPlayer();
+	// オープニングの終了処理
+	UninitOpening();
+
+	// タイトルの終了処理
+	UninitTitle();
+
+	// ゲームの終了処理
+	UninitGame();
+
+	// エンディングの終了処理
+	UninitEnding();
 
 }
 
@@ -362,7 +380,48 @@ void Update(void)
 
 	UpdateInput();
 	UpdateCamera();
-	UpdatePlayer();
+
+	// 画面遷移
+	switch (g_nStage)
+	{
+	case STAGE_OPENING:
+
+		// オープニング更新
+		UpdateOpening();
+
+		break;
+
+	case STAGE_TITLE:
+
+		// タイトル更新
+		UpdateTitle();
+
+		if (GetKeyboardTrigger(DIK_RETURN))
+		{// Enter押したら、ステージを切り替える
+			SetStage(STAGE_GAME);
+		}
+
+		break;
+
+	case STAGE_GAME:
+
+		// ゲーム更新
+		UpdateGame();
+
+		if (GetKeyboardTrigger(DIK_RETURN))
+		{// Enter押したら、ステージを切り替える
+			SetStage(STAGE_ENDING);
+		}
+
+		break;
+
+	case STAGE_ENDING:
+
+		// エンディング更新
+		UpdateEnding();
+
+		break;
+	}
 
 }
 
@@ -378,7 +437,38 @@ void Draw(void)
 	if (SUCCEEDED(g_pD3DDevice->BeginScene()))
 	{
 		SetCamera(0);
-		DrawPlayer();
+
+		// 画面遷移
+		switch (g_nStage)
+		{
+		case STAGE_OPENING:
+
+			// オープニング描画
+			DrawOpening();
+
+			break;
+
+		case STAGE_TITLE:
+
+			// タイトル描画
+			DrawTitle();
+
+			break;
+
+		case STAGE_GAME:
+
+			// ゲーム描画
+			DrawGame();
+
+			break;
+
+		case STAGE_ENDING:
+
+			// エンディング描画
+			DrawEnding();
+
+			break;
+		}
 
 		// Direct3Dによる描画の終了
 		g_pD3DDevice->EndScene();
@@ -386,6 +476,32 @@ void Draw(void)
 
 	// バックバッファとフロントバッファの入れ替え
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
+}
+
+//=============================================================================
+// 再初期化（ゲームループで使用）
+//=============================================================================
+void ReInit(void)
+{
+	InitPlayer(1);
+}
+
+//=============================================================================
+// 画面遷移
+//=============================================================================
+void SetStage(int stage)
+{
+	if (stage < 0 || stage >= STAGE_MAX) return;
+
+	g_nStage = stage;
+}
+
+//=============================================================================
+// 現在のゲーム画面を取得
+//=============================================================================
+int GetStage(void)
+{
+	return g_nStage;
 }
 
 //=============================================================================
@@ -402,7 +518,7 @@ LPDIRECT3DDEVICE9 GetDevice(void)
 //=============================================================================
 void DrawFPS(void)
 {
-	//PrintDebugProc("FPS:%d\n", g_nCountFPS);
+	PrintDebugProc("FPS:%d\n", g_nCountFPS);
 }
 #endif
 

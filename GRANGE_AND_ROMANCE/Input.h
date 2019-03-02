@@ -24,8 +24,8 @@
 
 #define BUTTON_A		0x00000010l	// Ａボタン(.rgbButtons[0]&0x80) PS4コン□ボタン
 #define BUTTON_B		0x00000020l	// Ｂボタン(.rgbButtons[1]&0x80) PS4コン×ボタン
-#define BUTTON_C		0x00000040l	// Ｃボタン(.rgbButtons[2]&0x80) PS4コン△ボタン
-#define BUTTON_X		0x00000080l	// Ｘボタン(.rgbButtons[3]&0x80) PS4コン○ボタン
+#define BUTTON_C		0x00000040l	// Ｃボタン(.rgbButtons[2]&0x80) PS4コン○ボタン
+#define BUTTON_X		0x00000080l	// Ｘボタン(.rgbButtons[3]&0x80) PS4コン△ボタン
 #define BUTTON_Y		0x00000100l	// Ｙボタン(.rgbButtons[4]&0x80) PS4コンL1ボタン
 #define BUTTON_Z		0x00000200l	// Ｚボタン(.rgbButtons[5]&0x80) PS4コンR1ボタン
 #define BUTTON_L		0x00000400l	// Ｌボタン(.rgbButtons[6]&0x80) PS4コンL2ボタン
