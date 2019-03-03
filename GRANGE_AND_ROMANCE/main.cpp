@@ -13,6 +13,7 @@
 #include "Title.h"
 #include "Game.h"
 #include "Ending.h"
+#include "Debugproc.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -317,7 +318,6 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	InitInput(hInstance, hWnd);
 	InitCamera();
 	InitLight();
-	InitPlayer(0);
 	InitOpening();
 	InitTitle();
 	InitGame();
@@ -353,9 +353,6 @@ void Uninit(void)
 
 	// 入力処理の終了処理
 	UninitInput();
-
-	// モデルの終了処理
-	UninitPlayer();
 
 	// オープニングの終了処理
 	UninitOpening();
@@ -411,8 +408,6 @@ void Update(void)
 		// ゲーム更新
 		UpdateGame();
 
-		UpdatePlayer();
-
 		if (GetKeyboardTrigger(DIK_RETURN))
 		{// Enter押したら、ステージを切り替える
 			SetStage(STAGE_ENDING);
@@ -465,9 +460,6 @@ void Draw(void)
 			// ゲーム描画
 			DrawGame();
 
-			// プレイヤー描画
-			DrawPlayer();
-
 			break;
 
 		case STAGE_ENDING:
@@ -487,6 +479,14 @@ void Draw(void)
 }
 
 //=============================================================================
+// 再初期化（ゲームループで使用）
+//=============================================================================
+void ReInit(void)
+{
+	InitPlayer(1);
+}
+
+//=============================================================================
 // 画面遷移
 //=============================================================================
 void SetStage(int stage)
@@ -494,6 +494,14 @@ void SetStage(int stage)
 	if (stage < 0 || stage >= STAGE_MAX) return;
 
 	g_nStage = stage;
+}
+
+//=============================================================================
+// 現在のゲーム画面を取得
+//=============================================================================
+int GetStage(void)
+{
+	return g_nStage;
 }
 
 //=============================================================================
@@ -510,7 +518,7 @@ LPDIRECT3DDEVICE9 GetDevice(void)
 //=============================================================================
 void DrawFPS(void)
 {
-	//PrintDebugProc("FPS:%d\n", g_nCountFPS);
+	PrintDebugProc("FPS:%d\n", g_nCountFPS);
 }
 #endif
 
