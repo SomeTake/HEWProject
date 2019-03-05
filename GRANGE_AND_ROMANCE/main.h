@@ -124,6 +124,8 @@ enum E_STAGE
 // プロトタイプ宣言
 //*****************************************************************************
 LPDIRECT3DDEVICE9 GetDevice(void);	// デバイスを取得する
-void SetStage(int stage);
+void SetStage(int stage);			// ステージの変更
+int GetStage(void);					// 現在のステージを取得
+void ReInit(void);					// 再初期化
 
 #endif
