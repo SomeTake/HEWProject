@@ -342,9 +342,9 @@ void MovePlayer(void)
 
 	EFFECT *Effect = GetEffect(0);
 
-	Effect->PPos.x = playerWk.pos.x;
-	Effect->PPos.y = playerWk.pos.y;
-	Effect->PPos.z = playerWk.pos.z;
+	Effect->Ppos.x = playerWk.pos.x;
+	Effect->Ppos.y = playerWk.pos.y;
+	Effect->Ppos.z = playerWk.pos.z;
 	// (半径*角度)＋基準座標でプレイヤーの座標を計算する
 
 	// 移動量をリセットする
