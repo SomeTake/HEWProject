@@ -13,7 +13,20 @@
 enum EffectType
 {
 	FIRE,
-	HEAL,
+	HitBlood,
+	HitFire,
+	HitFire_Phase2,
+	HitLight,
+	ExplodeFire,
+	ExplodeFire_Phase2,
+	FireWall,
+	FireWall_Phase2,
+	RushSmoke,
+	FirePillar,
+	PowerUp,
+	BossDebut,
+	BossDeath,
+	MagicCircle,
 };
 
 
@@ -30,13 +43,13 @@ typedef struct
 
 typedef struct
 {
-	D3DXVECTOR3				pos;
-	D3DXVECTOR3				rot;
-	D3DXVECTOR3				scl;
-	D3DXVECTOR3				Ppos;
+	D3DXVECTOR3				Pos;
+	D3DXVECTOR3				Rot;
+	D3DXVECTOR3				Scale;
+	D3DXVECTOR3				PPos;
 	int						ID;
 	int						EffectType;
-	bool					use;
+	bool					Use;
 }EFFECT;
 
 //*****************************************************************************

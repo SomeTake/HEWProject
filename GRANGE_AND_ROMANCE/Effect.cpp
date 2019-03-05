@@ -28,10 +28,9 @@ EFFECT					Effect[EffectMax];
 static const EFK_CHAR* EffectFileName[] =
 {
 	(const EFK_CHAR*)L"data/EFFECT/bush.efk",
-	(const EFK_CHAR*)L"data/EFFECT/FireCircle.efk",
 };
 
-D3DXVECTOR3 at, up, pos, ppos;
+D3DXVECTOR3 at, up, pos,ppos;
 
 //=============================================================================
 // èâä˙âªèàóù
@@ -43,13 +42,13 @@ HRESULT InitEffect(bool FirstInit)
 
 	for (Effect_No = 0; Effect_No < EffectMax; Effect_No++)
 	{
-		Effect[Effect_No].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);;
-		Effect[Effect_No].Ppos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);;
-		Effect[Effect_No].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);;
-		Effect[Effect_No].scl = D3DXVECTOR3(1.0f, 1.0f, 1.0f);;
+		Effect[Effect_No].Pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);;
+		Effect[Effect_No].PPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);;
+		Effect[Effect_No].Rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);;
+		Effect[Effect_No].Scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);;
 		Effect[Effect_No].ID = -1;
 		Effect[Effect_No].EffectType = -1;
-		Effect[Effect_No].use = true;
+		Effect[Effect_No].Use = true;
 	}
 
 	// èâÇﬂÇƒèâä˙âª
@@ -135,7 +134,7 @@ void UpdateEffect(void)
 
 	for (Effect_No = 0; Effect_No < EffectMax; Effect_No++)
 	{
-		if (Effect[Effect_No].use == true)
+		if (Effect[Effect_No].Use == true)
 		{
 			EffectID = Effect[Effect_No].ID;
 			//Count++;
@@ -147,26 +146,14 @@ void UpdateEffect(void)
 			if (GetKeyboardTrigger(DIK_O))
 			{
 					int EffectID = EffectCtrl.Manager->Play(EffectCtrl.Effect[FIRE],
-						Effect->Ppos.x, Effect->Ppos.y, Effect->Ppos.z);
+						Effect->PPos.x, Effect->PPos.y, Effect->PPos.z);
 
 					if (GetKeyboardRelease(DIK_O))
 					{
 						EffectCtrl.Manager->StopEffect(Effect[Effect_No].ID);
-						Effect[Effect_No].use = false;
+						Effect[Effect_No].Use = false;
 						continue;
 					}
-			}
-			else if (GetKeyboardTrigger(DIK_P))
-			{
-				int EffectID = EffectCtrl.Manager->Play(EffectCtrl.Effect[HEAL],
-					Effect->Ppos.x, Effect->Ppos.y, Effect->Ppos.z);
-
-				if (GetKeyboardRelease(DIK_P))
-				{
-					EffectCtrl.Manager->StopEffect(Effect[Effect_No].ID);
-					Effect[Effect_No].use = false;
-					continue;
-				}
 			}
 
 		}
@@ -220,12 +207,15 @@ void SetEffect(D3DXVECTOR3 Pos, D3DXVECTOR3 PPos, int EffectType, int no)
 
 	for (Effect_No = 0; Effect_No < EffectMax; Effect_No++)
 	{
-		if (Effect[no].use == false)
+		if (Effect[no].Use == false)
 		{
 			Effect[no].ID = EffectCtrl.Manager->Play(EffectCtrl.Effect[EffectType], Pos.x+=PPos.x, Pos.y += PPos.y, Pos.z += PPos.z);
-			Effect[no].pos = Pos;
+			//Effect[no].Pos.x += Effect->PPos.x;
+			//Effect[no].Pos.y += Effect->PPos.y;
+			//Effect[no].Pos.z += Effect->PPos.z;
+			Effect[no].Pos = Pos;
 			Effect[no].EffectType = EffectType;
-			Effect[no].use = true;
+			Effect[no].Use = true;
 		}
 	}
 
