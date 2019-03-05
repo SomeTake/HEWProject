@@ -27,7 +27,7 @@ EFFECT					Effect[EffectMax];
 
 static const EFK_CHAR* EffectFileName[] =
 {
-	(const EFK_CHAR*)L"data/EFFECT/bush.efk",
+	(const EFK_CHAR*)L"data/EFFECT/Hew.efk",
 };
 
 D3DXVECTOR3 at, up, pos,ppos;
