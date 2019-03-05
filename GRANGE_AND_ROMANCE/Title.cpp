@@ -30,7 +30,7 @@ HRESULT InitTitle(void)
 	title->scl = D3DXVECTOR3(0.0f, 0.0f, 0.0f);						// 座標データを初期化
 	title->col = D3DXVECTOR3(0.0f, 0.0f, 0.0f);						// 座標データを初期化
 	title->Alpha = 1.0f;
-	title->use = true;
+	title->use = false;
 	title->Texture = pD3DTextureTitle;								// テクスチャ情報
 	D3DXVECTOR2 temp = D3DXVECTOR2(TITLE_SIZE_X, TITLE_SIZE_Y);
 	title->Radius = D3DXVec2Length(&temp);							// タイトルの半径を初期化
@@ -68,20 +68,22 @@ void DrawTitle(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	TITLE *title = TitleWk;				// タイトルのポインターを初期化
+	if (title->use == true)
+	{
 
-	// 頂点フォーマットの設定
-	pDevice->SetFVF(FVF_VERTEX_2D);
+		// 頂点フォーマットの設定
+		pDevice->SetFVF(FVF_VERTEX_2D);
 
 
-	// テクスチャの設定
-	pDevice->SetTexture(0, title->Texture);
+		// テクスチャの設定
+		pDevice->SetTexture(0, title->Texture);
 
-	// ポリゴンの描画
-	pDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, NUM_TITLE, title->VertexWkTitle, sizeof(VERTEX_2D));
+		// ポリゴンの描画
+		pDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, NUM_TITLE, title->VertexWkTitle, sizeof(VERTEX_2D));
 
-	// 頂点フォーマットの設定
-	pDevice->SetFVF(FVF_VERTEX_2D);
-
+		// 頂点フォーマットの設定
+		pDevice->SetFVF(FVF_VERTEX_2D);
+	}
 }
 
 //=============================================================================

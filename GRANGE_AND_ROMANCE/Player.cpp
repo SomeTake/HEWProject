@@ -9,6 +9,7 @@
 #include "Input.h"
 #include "Camera.h"
 #include "D3DXAnimation.h"
+#include "Effect.h"
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -339,6 +340,11 @@ void MovePlayer(void)
 	playerWk.pos.y += playerWk.move.y;
 	playerWk.pos.z += playerWk.move.z;
 
+	EFFECT *Effect = GetEffect(0);
+
+	Effect->PPos.x = playerWk.pos.x;
+	Effect->PPos.y = playerWk.pos.y;
+	Effect->PPos.z = playerWk.pos.z;
 	// (半径*角度)＋基準座標でプレイヤーの座標を計算する
 
 	// 移動量をリセットする

@@ -29,7 +29,7 @@ HRESULT InitGame(void)
 	game->scl = D3DXVECTOR3(0.0f, 0.0f, 0.0f);						// 座標データを初期化
 	game->col = D3DXVECTOR3(0.0f, 0.0f, 0.0f);						// 座標データを初期化
 	game->Alpha = 1.0f;
-	game->use = true;
+	game->use = false;
 	game->Texture = pD3DTextureGame;								// テクスチャ情報
 	D3DXVECTOR2 temp = D3DXVECTOR2(GAME_SIZE_X, GAME_SIZE_Y);
 	game->Radius = D3DXVec2Length(&temp);							// ゲームの半径を初期化
@@ -68,19 +68,21 @@ void DrawGame(void)
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	GAME *game = GameWk;						// ゲームのポインターを初期化
 
-	// 頂点フォーマットの設定
-	pDevice->SetFVF(FVF_VERTEX_2D);
+	if (game->use == true)
+	{
+		// 頂点フォーマットの設定
+		pDevice->SetFVF(FVF_VERTEX_2D);
 
 
-	// テクスチャの設定
-	pDevice->SetTexture(0, game->Texture);
+		// テクスチャの設定
+		pDevice->SetTexture(0, game->Texture);
 
-	// ポリゴンの描画
-	pDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, NUM_GAME, game->VertexWkGame, sizeof(VERTEX_2D));
+		// ポリゴンの描画
+		pDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, NUM_GAME, game->VertexWkGame, sizeof(VERTEX_2D));
 
-	// 頂点フォーマットの設定
-	pDevice->SetFVF(FVF_VERTEX_2D);
-
+		// 頂点フォーマットの設定
+		pDevice->SetFVF(FVF_VERTEX_2D);
+	}
 }
 
 //=============================================================================

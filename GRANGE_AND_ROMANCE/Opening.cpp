@@ -63,6 +63,7 @@ void UpdateOpening(void)
 	if (GetKeyboardTrigger(DIK_RETURN))
 	{// Enter押したら、ステージを切り替える
 		SetStage(STAGE_TITLE);
+
 	}
 }
 //=============================================================================
