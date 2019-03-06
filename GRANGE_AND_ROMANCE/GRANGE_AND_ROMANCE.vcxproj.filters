@@ -72,6 +72,9 @@
     <ClCompile Include="Debugproc.cpp">
       <Filter>ソース ファイル\system</Filter>
     </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ending.h">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="Debugproc.h">
       <Filter>ヘッダー ファイル\system</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
