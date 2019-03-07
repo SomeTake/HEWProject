@@ -75,12 +75,15 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Gauge.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ending.h">
-      <Filter>ヘッダー ファイル\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
       <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
     <ClInclude Include="Opening.h">
@@ -117,6 +120,15 @@
       <Filter>ヘッダー ファイル\system</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Gauge.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,7 +15,6 @@
 #include "Ending.h"
 #include "Debugproc.h"
 #include "Effect.h"
-#include "Gage.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -372,7 +371,6 @@ void Uninit(void)
 	//エフェクトの終了処理
 	UninitEffect();
 
-
 }
 
 
@@ -415,6 +413,7 @@ void Update(void)
 		// ゲーム更新
 		UpdateGame();
 
+		// エフェクト更新
 		UpdateEffect();
 
 		if (GetKeyboardTrigger(DIK_RETURN))
