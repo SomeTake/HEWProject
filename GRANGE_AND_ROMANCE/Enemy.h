@@ -37,7 +37,7 @@ typedef struct {
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
-HRESULT InitEnemy(void);
+HRESULT InitEnemy(int type);
 void UninitEnemy(void);
 void UpdateEnemy(void);
 void DrawEnemy(void);

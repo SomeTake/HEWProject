@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "Ending.h"
 #include "Debugproc.h"
+#include "Enemy.h"
 
 //*****************************************************************************
 // É}ÉNÉçíËã`
@@ -484,6 +485,7 @@ void Draw(void)
 void ReInit(void)
 {
 	InitPlayer(1);
+	InitEnemy(1);
 }
 
 //=============================================================================
