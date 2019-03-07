@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Gauge.h"
+#include "meshfield.h"
 
 //*****************************************************************************
 // グローバル変数
@@ -18,9 +19,9 @@
 //=============================================================================
 HRESULT InitGame(void)
 {
+	InitMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 16, 16, 80.0f, 80.0f);
 	InitPlayer(0);
 	InitEnemy(0);
-
 	InitGauge(0);
 
 	return S_OK;
@@ -31,10 +32,9 @@ HRESULT InitGame(void)
 //=============================================================================
 void UninitGame(void)
 {
-	// モデルの終了処理
+	UninitMeshField();
 	UninitPlayer();
 	UninitEnemy();
-
 	UninitGauge();
 
 }
@@ -44,9 +44,9 @@ void UninitGame(void)
 //=============================================================================
 void UpdateGame(void)
 {
+	UpdateMeshField();
 	UpdatePlayer();
 	UpdateEnemy();
-
 	UpdateGauge();
 
 }
@@ -56,10 +56,9 @@ void UpdateGame(void)
 //=============================================================================
 void DrawGame(void)
 {
-	// プレイヤー描画
+	DrawMeshField();
 	DrawPlayer();
 	DrawEnemy();
-
 	DrawGauge();
 
 }

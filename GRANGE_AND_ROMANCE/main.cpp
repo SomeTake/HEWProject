@@ -469,9 +469,6 @@ void Draw(void)
 			// ゲーム描画
 			DrawGame();
 
-			//ゲージ描画
-			DrawGage();
-
 			//エフェクト描画
 			DrawEffect();
 

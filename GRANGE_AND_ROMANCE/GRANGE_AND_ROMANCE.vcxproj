@@ -33,6 +33,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="meshfield.cpp" />
     <ClCompile Include="Opening.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="meshfield.h" />
     <ClInclude Include="Opening.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Title.h" />
@@ -60,7 +62,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{E3537D76-2649-49B0-A9EA-B889CFD755DE}</ProjectGuid>
     <RootNamespace>GRANGEANDROMANCE</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
