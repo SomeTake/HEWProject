@@ -28,6 +28,8 @@ EFFECT					Effect[EffectMax];
 static const EFK_CHAR* EffectFileName[] =
 {
 	(const EFK_CHAR*)L"data/EFFECT/bush.efk",
+	(const EFK_CHAR*)L"data/EFFECT/FireCircle.efk",
+
 };
 
 D3DXVECTOR3 at, up, pos,ppos;
@@ -148,6 +150,19 @@ void UpdateEffect(void)
 						Effect[Effect_No].use = false;
 						continue;
 					}
+			}
+
+			else if (GetKeyboardTrigger(DIK_P))
+			{
+				int EffectID = EffectCtrl.Manager->Play(EffectCtrl.Effect[WATER],
+					Effect->Ppos.x, Effect->Ppos.y, Effect->Ppos.z);
+
+				if (GetKeyboardRelease(DIK_P))
+				{
+					EffectCtrl.Manager->StopEffect(Effect[Effect_No].ID);
+					Effect[Effect_No].use = false;
+					continue;
+				}
 			}
 
 		}

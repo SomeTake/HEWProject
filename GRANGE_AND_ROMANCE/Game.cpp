@@ -6,6 +6,7 @@
 *******************************************************************************/
 #include "Game.h"
 #include "Player.h"
+#include "Gauge.h"
 
 //*****************************************************************************
 // グローバル変数
@@ -18,6 +19,8 @@ HRESULT InitGame(void)
 {
 	InitPlayer(0);
 
+	InitGauge(0);
+
 	return S_OK;
 }
 
@@ -29,6 +32,8 @@ void UninitGame(void)
 	// モデルの終了処理
 	UninitPlayer();
 
+	UninitGauge();
+
 }
 
 //=============================================================================
@@ -37,6 +42,9 @@ void UninitGame(void)
 void UpdateGame(void)
 {
 	UpdatePlayer();
+
+	UpdateGauge();
+
 }
 
 //=============================================================================
@@ -46,5 +54,8 @@ void DrawGame(void)
 {
 	// プレイヤー描画
 	DrawPlayer();
+
+	DrawGauge();
+
 }
 

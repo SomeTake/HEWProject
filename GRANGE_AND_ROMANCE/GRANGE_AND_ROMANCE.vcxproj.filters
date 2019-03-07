@@ -75,7 +75,7 @@
     <ClCompile Include="Effect.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
-    <ClCompile Include="Gage.cpp">
+    <ClCompile Include="Gauge.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,7 +122,7 @@
     <ClInclude Include="Game.h">
       <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
-    <ClInclude Include="Gage.h">
+    <ClInclude Include="Gauge.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,7 +15,6 @@
 #include "Ending.h"
 #include "Debugproc.h"
 #include "Effect.h"
-#include "gage.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -325,7 +324,6 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	InitGame();
 	InitEnding();
 	InitEffect(true);
-	InitGAGE(0);
 
 	return S_OK;
 }
@@ -370,11 +368,8 @@ void Uninit(void)
 	// エンディングの終了処理
 	UninitEnding();
 
-	//エフェクトの終了処理
+	// エフェクトの終了処理
 	UninitEffect();
-
-	//ゲージの終了処理
-	UninitGAGE();
 
 }
 
@@ -418,8 +413,7 @@ void Update(void)
 		// ゲーム更新
 		UpdateGame();
 
-		UpdateGAGE();
-
+		// エフェクト更新
 		UpdateEffect();
 
 		if (GetKeyboardTrigger(DIK_RETURN))
@@ -474,10 +468,7 @@ void Draw(void)
 			// ゲーム描画
 			DrawGame();
 
-			//ゲージ描画
-			DrawGAGE();
-
-			//エフェクト描画
+			// エフェクト描画
 			DrawEffect();
 
 			break;

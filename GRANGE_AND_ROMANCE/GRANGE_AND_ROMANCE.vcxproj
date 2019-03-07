@@ -26,8 +26,8 @@
     <ClCompile Include="Debugproc.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Ending.cpp" />
-    <ClCompile Include="Gage.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Gauge.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -43,8 +43,8 @@
     <ClInclude Include="Debugproc.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Ending.h" />
-    <ClInclude Include="Gage.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Gauge.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Main.h" />
