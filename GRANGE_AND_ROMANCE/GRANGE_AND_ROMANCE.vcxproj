@@ -22,10 +22,12 @@
     <ClCompile Include="AnimationModel.cpp" />
     <ClCompile Include="CAllocateHierarchy.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="D3DXAnimation.cpp" />
     <ClCompile Include="Debugproc.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Ending.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gauge.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -39,10 +41,12 @@
     <ClInclude Include="AnimationModel.h" />
     <ClInclude Include="CAllocateHierarchy.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="D3DXAnimation.h" />
     <ClInclude Include="Debugproc.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Ending.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gauge.h" />
     <ClInclude Include="Input.h" />

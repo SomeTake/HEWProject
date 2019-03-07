@@ -6,6 +6,7 @@
 *******************************************************************************/
 #include "Game.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Gauge.h"
 
 //*****************************************************************************
@@ -18,6 +19,7 @@
 HRESULT InitGame(void)
 {
 	InitPlayer(0);
+	InitEnemy(0);
 
 	InitGauge(0);
 
@@ -31,6 +33,7 @@ void UninitGame(void)
 {
 	// モデルの終了処理
 	UninitPlayer();
+	UninitEnemy();
 
 	UninitGauge();
 
@@ -42,6 +45,7 @@ void UninitGame(void)
 void UpdateGame(void)
 {
 	UpdatePlayer();
+	UpdateEnemy();
 
 	UpdateGauge();
 
@@ -54,6 +58,7 @@ void DrawGame(void)
 {
 	// プレイヤー描画
 	DrawPlayer();
+	DrawEnemy();
 
 	DrawGauge();
 

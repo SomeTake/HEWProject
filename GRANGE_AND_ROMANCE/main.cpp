@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "Ending.h"
 #include "Debugproc.h"
+#include "Enemy.h"
 #include "Effect.h"
 
 //*****************************************************************************
@@ -368,7 +369,7 @@ void Uninit(void)
 	// エンディングの終了処理
 	UninitEnding();
 
-	// エフェクトの終了処理
+	//エフェクトの終了処理
 	UninitEffect();
 
 }
@@ -468,7 +469,10 @@ void Draw(void)
 			// ゲーム描画
 			DrawGame();
 
-			// エフェクト描画
+			//ゲージ描画
+			DrawGage();
+
+			//エフェクト描画
 			DrawEffect();
 
 			break;
@@ -495,6 +499,7 @@ void Draw(void)
 void ReInit(void)
 {
 	InitPlayer(1);
+	InitEnemy(1);
 }
 
 //=============================================================================
