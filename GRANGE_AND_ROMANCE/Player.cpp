@@ -145,6 +145,16 @@ HRESULT InitPlayer(int type)
 				playerWk[pn].Animation->SetShiftTime(playerWk[pn].Animation, i, Data[i].ShiftTime);
 			}
 		}
+
+		for (int pn = 0; pn < PLAYER_NUM; pn++)
+		{
+			// 当たり判定の初期化
+			for (int i = 0; i < HIT_CHECK_NUM; i++)
+			{
+				D3DXMATRIX Mtx = GetBoneMatrix(playerWk[pn].Animation, CharaHitPos[i]);
+				InitCollision(0, &playerWk[pn].Collision[i], Mtx, HitRadius[i]);
+			}
+		}
 	}
 	else
 	{
@@ -164,6 +174,12 @@ void UninitPlayer(void)
 {
 	for (int pn = 0; pn < PLAYER_NUM; pn++)
 	{
+		// 当たり判定をリリース
+		for (int i = 0; i < HIT_CHECK_NUM; i++)
+		{
+			UninitCollision(&playerWk[pn].Collision[i]);
+		}
+
 		// アニメーションをリリース
 		playerWk[pn].Animation->UninitAnimation(playerWk[pn].Animation);
 	}
@@ -194,6 +210,14 @@ void UpdatePlayer(void)
 
 		// 座標移動
 		MovePlayer(pn);
+
+		// 当たり判定座標の更新
+		D3DXMATRIX Mtx;
+		for (int i = 0; i < HIT_CHECK_NUM; i++)
+		{
+			Mtx = GetBoneMatrix(playerWk[pn].Animation, CharaHitPos[i]);
+			UpdateCollision(&playerWk[pn].Collision[i], Mtx);
+		}
 	}
 }
 
@@ -234,6 +258,15 @@ void DrawPlayer(void)
 
 		// マテリアルをデフォルトに戻す
 		pDevice->SetMaterial(&matDef);
+
+#ifdef _DEBUG
+		for (int i = 0; i < HIT_CHECK_NUM; i++)
+		{
+			// プレイヤーの当たり判定用ボールを描画する
+			DrawCollision(&playerWk[pn].Collision[i]);
+		}
+#endif
+
 	}
 }
 
