@@ -8,6 +8,7 @@
 #define _PLAYER_H_
 
 #include "D3DXAnimation.h"
+#include "Collision.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -37,6 +38,7 @@ typedef struct {
 	bool				reverse;			// 向き反転フラグ
 	bool				HitFrag;			// 攻撃が当たったかどうか判定するフラグ
 	bool				UseItem;			// アイテムを所持しているかどうか判定するフラグ
+	COLLISION			Collision[HIT_CHECK_NUM];			// 当たり判定用構造体
 }CHARA;
 
 // キャラクターのアニメーション番号
@@ -103,6 +105,59 @@ static BATTLEDATA Data[AnimMax] = {
 { 0, 1.5f, 0.1f, 0, 0 },		// Reaction
 };
 
+// 当たり判定を発生させる場所
+static const char* CharaHitPos[] =
+{
+	"Hips",				// 尻
+	"Neck",				// 首
+	"Head",				// 頭
+	"LeftShoulder",		// 左肩
+	"RightShoulder",	// 右肩
+	"LeftHand",			// 左手
+	"RightHand",		// 右手
+	"LeftFoot",			// 左足
+	"RightFoot",		// 右足
+	"LeftForeArm",		// 左肘
+	"RightForeArm",		// 右肘
+	"LeftLeg",			// 左膝
+	"RightLeg"			// 右膝
+};
+
+// 当たり判定発生場所と連動（CharaHitPos）
+enum CharaHitNum
+{
+	Hips,
+	Neck,
+	Head,
+	LeftShoulder,
+	RightShoulder,
+	LeftHand,
+	RightHand,
+	LeftFoot,
+	RightFoot,
+	LeftForeArm,
+	RightForeArm,
+	LeftLeg,
+	RightLeg,
+};
+
+// 当たり判定の半径（上の発生場所と連動）
+static float HitRadius[] =
+{
+	10.0f,
+	10.0f,
+	10.0f,
+	5.0f,
+	5.0f,
+	5.0f,
+	5.0f,
+	7.0f,
+	7.0f,
+	5.0f,
+	5.0f,
+	7.0f,
+	7.0f
+};
 
 //*****************************************************************************
 // プロトタイプ宣言
