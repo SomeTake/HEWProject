@@ -76,15 +76,12 @@ void DrawOpening(void)
 	// 頂点フォーマットの設定
 	pDevice->SetFVF(FVF_VERTEX_2D);
 
-
 	// テクスチャの設定
 	pDevice->SetTexture(0, opening->Texture);
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, NUM_OPENING, opening->VertexWkOpening, sizeof(VERTEX_2D));
 
-	// 頂点フォーマットの設定
-	pDevice->SetFVF(FVF_VERTEX_2D);
 
 }
 

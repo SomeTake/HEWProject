@@ -242,7 +242,7 @@ HRESULT SafeLoadEffect(Effekseer::Manager *Manager, Effekseer::Effect **Effect, 
 	// 失敗したら
 	if ((*Effect) == NULL)
 	{
-		printf(Message, "Load %s Effect Failed！", ErrorSrc);
+		sprintf_s(Message, "Load %s Effect Failed！", ErrorSrc);
 		MessageBox(0, Message, "Error", 0);
 		return E_FAIL;
 	}
@@ -256,7 +256,7 @@ HRESULT SafeLoadEffect(Effekseer::Manager *Manager, Effekseer::Effect **Effect, 
 		// テクスチャを読み込むが失敗したら
 		if (Texture == NULL)
 		{
-			printf(Message, "Load %s Effect Texture Failed！", ErrorSrc);
+			sprintf_s(Message, "Load %s Effect Texture Failed！", ErrorSrc);
 			MessageBox(0, Message, "Error", 0);
 			return E_FAIL;
 		}
