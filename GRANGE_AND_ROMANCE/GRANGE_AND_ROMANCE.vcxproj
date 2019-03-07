@@ -26,6 +26,7 @@
     <ClCompile Include="D3DXAnimation.cpp" />
     <ClCompile Include="Debugproc.cpp" />
     <ClCompile Include="Ending.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="D3DXAnimation.h" />
     <ClInclude Include="Debugproc.h" />
     <ClInclude Include="Ending.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
