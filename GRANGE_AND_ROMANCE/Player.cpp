@@ -9,6 +9,7 @@
 #include "Input.h"
 #include "Camera.h"
 #include "D3DXAnimation.h"
+#include "Effect.h"
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -37,7 +38,7 @@ HRESULT InitPlayer(int type)
 		playerWk[pn].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 		// ステータス等の初期設定
-		playerWk[pn].HP = 0;
+		playerWk[pn].HP = 200;
 		playerWk[pn].HPzan = playerWk[pn].HP;
 		playerWk[pn].SP = 0;
 		playerWk[pn].reverse = false;
@@ -660,6 +661,12 @@ void MovePlayer(int pn)
 	playerWk[pn].pos.x += playerWk[pn].move.x;
 	playerWk[pn].pos.y += playerWk[pn].move.y;
 	playerWk[pn].pos.z += playerWk[pn].move.z;
+
+	EFFECT *Effect = GetEffect(0);
+
+	Effect->Ppos.x = playerWk[pn].pos.x;
+	Effect->Ppos.y = playerWk[pn].pos.y;
+	Effect->Ppos.z = playerWk[pn].pos.z;
 
 	// (半径*角度)＋基準座標でプレイヤーの座標を計算する
 
