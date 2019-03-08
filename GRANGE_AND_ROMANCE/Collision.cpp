@@ -134,3 +134,39 @@ void DrawCollision(COLLISION *Collision)
 
 	pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }
+
+//=====================================================================================================
+// 当たり判定
+// AttackPos = 攻撃側中心位置, DefendPos = 防御側中心位置, AttackRange = 攻撃側半径, DefendPos = 防御側半径
+//=====================================================================================================
+bool HitSphere(D3DXVECTOR3 AttackPos, D3DXVECTOR3 DefendPos, float AttackRange, float DefendRange)
+{
+	// 当たり判定の中心の距離を測る
+	D3DXVECTOR3 unit = AttackPos - DefendPos;
+	float dist = D3DXVec3Length(&unit);
+
+	// 当たり判定の範囲を足した距離を出す（球なのでXYZどれとっても同じ）
+	float hitrange = AttackRange + DefendRange;
+
+	// 当たり判定の中心の距離よりも範囲を足した距離の方が長ければ当たる
+	if (dist <= hitrange)
+	{
+		return true;
+	}
+	// 外れ
+	else
+	{
+
+	}
+	return false;
+}
+
+
+//=====================================================================================================
+// プレイヤーの攻撃とエネミーとの当たり判定
+// 引数：Player構造体　Enemy構造体
+//=====================================================================================================
+bool HitCheckPToE(CHARA *Player, ENEMY *Enemy)
+{
+	return true;
+}

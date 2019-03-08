@@ -87,6 +87,9 @@
     <ClCompile Include="Onna.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
+    <ClCompile Include="Blackhole.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ending.h">
@@ -142,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="Onna.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Blackhole.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>ヘッダー ファイル\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

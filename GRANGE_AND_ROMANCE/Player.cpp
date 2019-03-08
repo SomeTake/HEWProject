@@ -5,6 +5,7 @@
 //
 //=============================================================================
 #include "Main.h"
+#include "Struct.h"
 #include "Player.h"
 #include "Input.h"
 #include "Camera.h"
