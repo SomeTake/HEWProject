@@ -124,5 +124,7 @@ LPDIRECT3DDEVICE9 GetDevice(void);	// デバイスを取得する
 void SetStage(int stage);			// ステージの変更
 int GetStage(void);					// 現在のステージを取得
 void ReInit(void);					// 再初期化
+int CreateRandom(int Minimum, int Maximum);
+float CreateRandomFloat(float Minimum, float Maximum);
 
 #endif

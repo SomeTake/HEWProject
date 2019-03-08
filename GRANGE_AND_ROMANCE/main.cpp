@@ -573,3 +573,12 @@ bool SetWindowCenter(HWND hWnd)
 						);
 
 }
+int CreateRandom(int Minimum, int Maximum)
+{
+	return Minimum + (int)(rand()*(Maximum - Minimum + 1.0f) / (1.0f + RAND_MAX));
+}
+
+float CreateRandomFloat(float Minimum, float Maximum)
+{
+	return Minimum + (int)(rand()*(Maximum - Minimum + 1.0f) / (1.0f + RAND_MAX));
+}
