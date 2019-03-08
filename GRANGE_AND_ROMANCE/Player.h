@@ -17,6 +17,7 @@
 #define PLAYER_NUM		(2)									// プレイヤーの数
 
 #define FIRST_PLAYER_POS	D3DXVECTOR3(0.0f, 0.0f, 0.0f)	// 初期位置
+#define PLAYER_HP_MAX	(200)
 
 #define VALUE_FRONTWALK	(1.50f)								// 前歩き移動量
 #define	VALUE_SIDESTEP	(1.00f)								// 横歩き移動量
@@ -32,7 +33,6 @@ typedef struct {
 	D3DXVECTOR3			rot;				// 現在の向き
 	D3DXVECTOR3			scl;				// モデルの大きさ(スケール)
 	int					HP;					// 体力
-	int					SP;					// SPゲージ
 	int					HPzan;				// 残り体力
 	D3DXANIMATION		*Animation;			// アニメーション
 	bool				reverse;			// 向き反転フラグ
