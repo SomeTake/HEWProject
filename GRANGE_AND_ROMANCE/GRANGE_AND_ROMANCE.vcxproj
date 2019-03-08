@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationModel.cpp" />
+    <ClCompile Include="Blackhole.cpp" />
     <ClCompile Include="CAllocateHierarchy.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -40,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationModel.h" />
+    <ClInclude Include="Blackhole.h" />
     <ClInclude Include="CAllocateHierarchy.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
@@ -56,6 +58,7 @@
     <ClInclude Include="meshfield.h" />
     <ClInclude Include="Opening.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Struct.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -7,29 +7,13 @@
 #ifndef _COLLISION_H_
 #define _COLLISION_H_
 
-#include "main.h"
+#include "Main.h"
+#include "Struct.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
 #define	BALL_XFILE		"data/MODEL/Ball.x"					// 読み込むモデル名
-#define	HIT_CHECK_NUM	(13)								// 当たり判定の数
-
-//*****************************************************************************
-// 構造体定義
-//*****************************************************************************
-typedef struct
-{
-	D3DXVECTOR3 pos;		// 現在の位置
-	D3DXVECTOR3 rot;		// 回転
-	D3DXVECTOR3 scl;		// 大きさ
-	LPDIRECT3DTEXTURE9	D3DTexture;		// テクスチャ読み込み場所
-	LPD3DXMESH			Mesh;			// ID3DXMeshインターフェイスへのポインタ
-	LPD3DXBUFFER		D3DXMatBuff;	// メッシュのマテリアル情報を格納
-	DWORD				NumMat;			// 属性情報の総数
-	D3DXMATRIX			mtxWorld;		// ワールドマトリックス
-
-} COLLISION;
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -38,5 +22,9 @@ HRESULT InitCollision(int type, COLLISION *Collision, D3DXMATRIX Matrix, float R
 void UninitCollision(COLLISION *Collision);
 void UpdateCollision(COLLISION *Collision, D3DXMATRIX Matrix);
 void DrawCollision(COLLISION *Collision);
+
+bool HitSphere(D3DXVECTOR3 AttackPos, D3DXVECTOR3 DefendPos, float AttackRange, float DefendRange);
+bool HitCheckPToE(CHARA *Player, ENEMY *Enemy);
+
 
 #endif

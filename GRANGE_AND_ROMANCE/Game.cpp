@@ -9,6 +9,7 @@
 #include "Onna.h"
 #include "Gauge.h"
 #include "meshfield.h"
+#include "Blackhole.h"
 
 //*****************************************************************************
 // ÉOÉçÅ[ÉoÉãïœêî
@@ -23,6 +24,7 @@ HRESULT InitGame(void)
 	InitPlayer(0);
 	InitOnna(0);
 	InitGauge(0);
+	InitBlackhole(0);
 
 	return S_OK;
 }
@@ -36,6 +38,7 @@ void UninitGame(void)
 	UninitPlayer();
 	UninitOnna();
 	UninitGauge();
+	UninitBlackhole();
 
 }
 
@@ -48,6 +51,7 @@ void UpdateGame(void)
 	UpdatePlayer();
 	UpdateOnna();
 	UpdateGauge();
+	UpdateBlackhole();
 
 }
 
@@ -60,6 +64,7 @@ void DrawGame(void)
 	DrawPlayer();
 	DrawOnna();
 	DrawGauge();
+	DrawBlackhole();
 
 }
 

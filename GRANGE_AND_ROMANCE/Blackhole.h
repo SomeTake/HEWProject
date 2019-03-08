@@ -1,11 +1,11 @@
 //=============================================================================
 //
-// 女.x処理 [Onna.h]
+// ブラックホールくん処理 [Blackhole.h]
 // Author : HAL東京 GP11B341-17 80277 染谷武志
 //
 //=============================================================================
-#ifndef _ONNA_H_
-#define _ONNA_H_
+#ifndef _BLACKHOLE_H_
+#define _BLACKHOLE_H_
 
 #include "main.h"
 
@@ -13,11 +13,11 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	ONNA_XFILE		"data/MODEL/onna.x"		// 読み込むモデル名
-#define ONNA_NUM		(10)					// エネミーの数
-#define ONNA_HP_MAX	(10)
-#define ONNA_DIRECTION	(200.0f)
-#define ONNA_SCALE		(3.0f)
+#define	BLACKHOLE_XFILE		"data/MODEL/black.x"	// 読み込むモデル名
+#define BLACKHOLE_NUM		(10)					// エネミーの数
+#define BLACKHOLE_HP_MAX	(10)
+#define BLACKHOLE_DIRECTION	(200.0f)
+#define BLACKHOLE_SCALE		(3.0f)
 
 //*****************************************************************************
 // グローバル変数
@@ -26,9 +26,9 @@
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
-HRESULT InitOnna(int type);
-void UninitOnna(void);
-void UpdateOnna(void);
-void DrawOnna(void);
+HRESULT InitBlackhole(int type);
+void UninitBlackhole(void);
+void UpdateBlackhole(void);
+void DrawBlackhole(void);
 
 #endif

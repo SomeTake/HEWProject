@@ -16,6 +16,7 @@
 #include "Debugproc.h"
 #include "Onna.h"
 #include "Effect.h"
+#include "Blackhole.h"
 
 //*****************************************************************************
 // É}ÉNÉçíËã`
@@ -497,6 +498,7 @@ void ReInit(void)
 {
 	InitPlayer(1);
 	InitOnna(1);
+	InitBlackhole(1);
 }
 
 //=============================================================================
