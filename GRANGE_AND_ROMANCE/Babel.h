@@ -1,23 +1,24 @@
 //=============================================================================
 //
-// エネミー処理 [Enemy.h]
-// Author : HAL東京 GP11B341-17 80277 染谷武志
+// バーベル処理 [Babel.h]
+// Author : HAL東京 GP11B341-01 80163 飯塚　春輝
 //
 //=============================================================================
-#ifndef _ENEMY_H_
-#define _ENEMY_H_
+#ifndef _BABEL_H_
+#define _BABEL_H_
 
 #include "main.h"
 
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	ENEMY_XFILE		"data/MODEL/onna.x"		// 読み込むモデル名
-#define ENEMY_NUM		(10)					// エネミーの数
+#define	BABEL_XFILE		"data/MODEL/babel.x"	// 読み込むモデル名
+#define	BABEL_NUM		(100)					// バーベルの数
 
 //*****************************************************************************
 // グローバル変数
 //*****************************************************************************
+
 // キャラクターのデータを管理する構造体
 typedef struct {
 	LPDIRECT3DTEXTURE9	D3DTexture;			// テクスチャへのポインタ
@@ -28,17 +29,14 @@ typedef struct {
 	D3DXVECTOR3			move;				// モデルの移動量
 	D3DXVECTOR3			rot;				// 現在の向き
 	D3DXVECTOR3			scl;				// モデルの大きさ(スケール)
-	int					HP;					// 体力
-	int					SP;					// SPゲージ
-	int					HPzan;				// 残り体力
-}ENEMY;
+}ITEM;
 
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
-HRESULT InitEnemy(int type);
-void UninitEnemy(void);
-void UpdateEnemy(void);
-void DrawEnemy(void);
+HRESULT InitBabel(int type);
+void UninitBabel(void);
+void UpdateBabel(void);
+void DrawBabel(void);
 
 #endif

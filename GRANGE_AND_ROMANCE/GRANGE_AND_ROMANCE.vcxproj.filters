@@ -87,6 +87,9 @@
     <ClCompile Include="meshfield.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
+    <ClCompile Include="Babel.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ending.h">
@@ -141,6 +144,9 @@
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
     <ClInclude Include="meshfield.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Babel.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
   </ItemGroup>

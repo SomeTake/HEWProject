@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "Gauge.h"
 #include "meshfield.h"
+#include "Babel.h"
 
 //*****************************************************************************
 // ÉOÉçÅ[ÉoÉãïœêî
@@ -23,6 +24,7 @@ HRESULT InitGame(void)
 	InitPlayer(0);
 	InitEnemy(0);
 	InitGauge(0);
+	InitBabel(0);
 
 	return S_OK;
 }
@@ -36,6 +38,7 @@ void UninitGame(void)
 	UninitPlayer();
 	UninitEnemy();
 	UninitGauge();
+	UninitBabel();
 
 }
 
@@ -48,6 +51,7 @@ void UpdateGame(void)
 	UpdatePlayer();
 	UpdateEnemy();
 	UpdateGauge();
+	UpdateBabel();
 
 }
 
@@ -60,6 +64,7 @@ void DrawGame(void)
 	DrawPlayer();
 	DrawEnemy();
 	DrawGauge();
+	DrawBabel();
 
 }
 
