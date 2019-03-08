@@ -38,9 +38,8 @@ HRESULT InitPlayer(int type)
 		playerWk[pn].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 		// ステータス等の初期設定
-		playerWk[pn].HP = 200;
+		playerWk[pn].HP = PLAYER_HP_MAX;
 		playerWk[pn].HPzan = playerWk[pn].HP;
-		playerWk[pn].SP = 0;
 		playerWk[pn].reverse = false;
 	}
 

@@ -75,9 +75,6 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\3Dobject</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
@@ -85,6 +82,9 @@
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
     <ClCompile Include="meshfield.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Onna.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,9 +128,6 @@
     <ClInclude Include="Collision.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル\3Dobject</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
@@ -141,6 +138,9 @@
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
     <ClInclude Include="meshfield.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Onna.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
   </ItemGroup>

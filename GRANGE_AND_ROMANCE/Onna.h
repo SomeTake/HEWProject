@@ -1,11 +1,11 @@
 //=============================================================================
 //
-// エネミー処理 [Enemy.h]
+// 女.x処理 [Onna.h]
 // Author : HAL東京 GP11B341-17 80277 染谷武志
 //
 //=============================================================================
-#ifndef _ENEMY_H_
-#define _ENEMY_H_
+#ifndef _ONNA_H_
+#define _ONNA_H_
 
 #include "main.h"
 
@@ -13,8 +13,11 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	ENEMY_XFILE		"data/MODEL/onna.x"		// 読み込むモデル名
-#define ENEMY_NUM		(10)					// エネミーの数
+#define	ONNA_XFILE		"data/MODEL/onna.x"		// 読み込むモデル名
+#define ONNA_NUM		(10)					// エネミーの数
+#define ONNA_HP_MAX	(10)
+#define ONNA_DIRECTION	(200.0f)
+#define ONNA_SCALE		(3.0f)
 
 //*****************************************************************************
 // グローバル変数
@@ -30,16 +33,15 @@ typedef struct {
 	D3DXVECTOR3			rot;				// 現在の向き
 	D3DXVECTOR3			scl;				// モデルの大きさ(スケール)
 	int					HP;					// 体力
-	int					SP;					// SPゲージ
 	int					HPzan;				// 残り体力
-}ENEMY;
+}ONNA;
 
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
-HRESULT InitEnemy(int type);
-void UninitEnemy(void);
-void UpdateEnemy(void);
-void DrawEnemy(void);
+HRESULT InitOnna(int type);
+void UninitOnna(void);
+void UpdateOnna(void);
+void DrawOnna(void);
 
 #endif

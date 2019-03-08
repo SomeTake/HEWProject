@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "Ending.h"
 #include "Debugproc.h"
-#include "Enemy.h"
+#include "Onna.h"
 #include "Effect.h"
 
 //*****************************************************************************
@@ -496,7 +496,7 @@ void Draw(void)
 void ReInit(void)
 {
 	InitPlayer(1);
-	InitEnemy(1);
+	InitOnna(1);
 }
 
 //=============================================================================

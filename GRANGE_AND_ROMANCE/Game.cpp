@@ -6,7 +6,7 @@
 *******************************************************************************/
 #include "Game.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "Onna.h"
 #include "Gauge.h"
 #include "meshfield.h"
 
@@ -21,7 +21,7 @@ HRESULT InitGame(void)
 {
 	InitMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 16, 16, 80.0f, 80.0f);
 	InitPlayer(0);
-	InitEnemy(0);
+	InitOnna(0);
 	InitGauge(0);
 
 	return S_OK;
@@ -34,7 +34,7 @@ void UninitGame(void)
 {
 	UninitMeshField();
 	UninitPlayer();
-	UninitEnemy();
+	UninitOnna();
 	UninitGauge();
 
 }
@@ -46,7 +46,7 @@ void UpdateGame(void)
 {
 	UpdateMeshField();
 	UpdatePlayer();
-	UpdateEnemy();
+	UpdateOnna();
 	UpdateGauge();
 
 }
@@ -58,7 +58,7 @@ void DrawGame(void)
 {
 	DrawMeshField();
 	DrawPlayer();
-	DrawEnemy();
+	DrawOnna();
 	DrawGauge();
 
 }

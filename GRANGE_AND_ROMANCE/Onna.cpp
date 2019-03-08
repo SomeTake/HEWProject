@@ -1,10 +1,10 @@
 //=============================================================================
 //
-// エネミー処理 [Enemy.cpp]
+// 女.x処理 [Onna.cpp]
 // Author : HAL東京 GP11B341-17 80277 染谷武志
 //
 //=============================================================================
-#include "Enemy.h"
+#include "Onna.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -17,21 +17,23 @@
 //*****************************************************************************
 // グローバル変数
 //*****************************************************************************
-ENEMY enemyWk[ENEMY_NUM];	// エネミー構造体
+ONNA enemyWk[ONNA_NUM];	// エネミー構造体
 
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT InitEnemy(int type)
+HRESULT InitOnna(int type)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	for (int en = 0; en < ENEMY_NUM; en++)
+	for (int en = 0; en < ONNA_NUM; en++)
 	{
 		// 位置・回転・スケールの初期設定
+		enemyWk[en].HP = ONNA_HP_MAX;
+		enemyWk[en].HPzan = enemyWk[en].HP;
 		enemyWk[en].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		enemyWk[en].rot = D3DXVECTOR3(0.0f, 180.0f, 0.0f);
-		enemyWk[en].scl = D3DXVECTOR3(3.0f, 3.0f, 3.0f);
+		enemyWk[en].rot = D3DXVECTOR3(0.0f, ONNA_DIRECTION, 0.0f);
+		enemyWk[en].scl = D3DXVECTOR3(ONNA_SCALE, ONNA_SCALE, ONNA_SCALE);
 
 		enemyWk[en].D3DTexture = NULL;
 		enemyWk[en].D3DXMesh = NULL;
@@ -41,7 +43,7 @@ HRESULT InitEnemy(int type)
 		if (type == 0)
 		{
 			// Xファイルの読み込み
-			if (FAILED(D3DXLoadMeshFromX(ENEMY_XFILE,		// 読み込むモデルファイル名(Xファイル)
+			if (FAILED(D3DXLoadMeshFromX(ONNA_XFILE,		// 読み込むモデルファイル名(Xファイル)
 				D3DXMESH_SYSTEMMEM,							// メッシュの作成オプションを指定
 				pDevice,									// IDirect3DDevice9インターフェイスへのポインタ
 				NULL,										// 隣接性データを含むバッファへのポインタ
@@ -68,18 +70,27 @@ HRESULT InitEnemy(int type)
 //=============================================================================
 // 終了処理
 //=============================================================================
-void UninitEnemy(void)
+void UninitOnna(void)
 {
-	for (int en = 0; en < ENEMY_NUM; en++)
+	for (int en = 0; en < ONNA_NUM; en++)
 	{
-		// テクスチャへのポインタ
-		SAFE_DELETE(enemyWk[en].D3DTexture);
+		if (enemyWk[en].D3DTexture != NULL)
+		{	// テクスチャの開放
+			enemyWk[en].D3DTexture->Release();
+			enemyWk[en].D3DTexture = NULL;
+		}
 
-		// メッシュ情報へのポインタ
-		SAFE_DELETE(enemyWk[en].D3DXMesh);
+		if (enemyWk[en].D3DXMesh != NULL)
+		{	// メッシュの開放
+			enemyWk[en].D3DXMesh->Release();
+			enemyWk[en].D3DXMesh = NULL;
+		}
 
-		// マテリアル情報へのポインタ
-		SAFE_DELETE(enemyWk[en].D3DXBuffMat);
+		if (enemyWk[en].D3DXBuffMat != NULL)
+		{	// マテリアルの開放
+			enemyWk[en].D3DXBuffMat->Release();
+			enemyWk[en].D3DXBuffMat = NULL;
+		}
 	}
 
 }
@@ -87,7 +98,7 @@ void UninitEnemy(void)
 //=============================================================================
 // 更新処理
 //=============================================================================
-void UpdateEnemy(void)
+void UpdateOnna(void)
 {
 
 	enemyWk[0].pos = D3DXVECTOR3(10.0f, 0.0f, 10.0f);
@@ -106,7 +117,7 @@ void UpdateEnemy(void)
 //=============================================================================
 // 描画処理
 //=============================================================================
-void DrawEnemy(void)
+void DrawOnna(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	D3DXMATRIX mtxScl, mtxRot, mtxTranslate, g_mtxWorld;
@@ -114,7 +125,7 @@ void DrawEnemy(void)
 	D3DMATERIAL9 matDef;
 
 
-	for (int en = 0; en < ENEMY_NUM; en++)
+	for (int en = 0; en < ONNA_NUM; en++)
 	{
 		// ワールドマトリックスの初期化
 		D3DXMatrixIdentity(&g_mtxWorld);
@@ -162,7 +173,7 @@ void DrawEnemy(void)
 // エネミーの情報を取得する
 // 引数：en エネミー番号
 //=============================================================================
-ENEMY *GetEnemy(int en)
+ONNA *GetOnna(int en)
 {
 	return &enemyWk[en];
 }
