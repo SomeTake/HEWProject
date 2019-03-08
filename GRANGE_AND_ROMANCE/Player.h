@@ -17,6 +17,7 @@
 #define PLAYER_NUM		(2)									// プレイヤーの数
 
 #define FIRST_PLAYER_POS	D3DXVECTOR3(0.0f, 0.0f, 0.0f)	// 初期位置
+#define PLAYER_HP_MAX	(200)
 
 #define VALUE_FRONTWALK	(1.50f)								// 前歩き移動量
 #define	VALUE_SIDESTEP	(1.00f)								// 横歩き移動量
@@ -25,21 +26,6 @@
 //*****************************************************************************
 // グローバル変数
 //*****************************************************************************
-// キャラクターのデータを管理する構造体
-typedef struct {
-	D3DXVECTOR3			pos;				// モデルの位置
-	D3DXVECTOR3			move;				// モデルの移動量
-	D3DXVECTOR3			rot;				// 現在の向き
-	D3DXVECTOR3			scl;				// モデルの大きさ(スケール)
-	int					HP;					// 体力
-	int					SP;					// SPゲージ
-	int					HPzan;				// 残り体力
-	D3DXANIMATION		*Animation;			// アニメーション
-	bool				reverse;			// 向き反転フラグ
-	bool				HitFrag;			// 攻撃が当たったかどうか判定するフラグ
-	bool				UseItem;			// アイテムを所持しているかどうか判定するフラグ
-	COLLISION			Collision[HIT_CHECK_NUM];			// 当たり判定用構造体
-}CHARA;
 
 // キャラクターのアニメーション番号
 static const char* CharaStateAnim[] =

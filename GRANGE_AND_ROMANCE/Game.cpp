@@ -6,10 +6,14 @@
 *******************************************************************************/
 #include "Game.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "Onna.h"
 #include "Gauge.h"
 #include "meshfield.h"
+<<<<<<< HEAD
 #include "Babel.h"
+=======
+#include "Blackhole.h"
+>>>>>>> master
 
 //*****************************************************************************
 // ÉOÉçÅ[ÉoÉãïœêî
@@ -22,9 +26,13 @@ HRESULT InitGame(void)
 {
 	InitMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 16, 16, 80.0f, 80.0f);
 	InitPlayer(0);
-	InitEnemy(0);
+	InitOnna(0);
 	InitGauge(0);
+<<<<<<< HEAD
 	InitBabel(0);
+=======
+	InitBlackhole(0);
+>>>>>>> master
 
 	return S_OK;
 }
@@ -36,9 +44,13 @@ void UninitGame(void)
 {
 	UninitMeshField();
 	UninitPlayer();
-	UninitEnemy();
+	UninitOnna();
 	UninitGauge();
+<<<<<<< HEAD
 	UninitBabel();
+=======
+	UninitBlackhole();
+>>>>>>> master
 
 }
 
@@ -49,9 +61,13 @@ void UpdateGame(void)
 {
 	UpdateMeshField();
 	UpdatePlayer();
-	UpdateEnemy();
+	UpdateOnna();
 	UpdateGauge();
+<<<<<<< HEAD
 	UpdateBabel();
+=======
+	UpdateBlackhole();
+>>>>>>> master
 
 }
 
@@ -62,9 +78,13 @@ void DrawGame(void)
 {
 	DrawMeshField();
 	DrawPlayer();
-	DrawEnemy();
+	DrawOnna();
 	DrawGauge();
+<<<<<<< HEAD
 	DrawBabel();
+=======
+	DrawBlackhole();
+>>>>>>> master
 
 }
 

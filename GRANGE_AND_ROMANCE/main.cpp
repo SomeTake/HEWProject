@@ -14,8 +14,9 @@
 #include "Game.h"
 #include "Ending.h"
 #include "Debugproc.h"
-#include "Enemy.h"
+#include "Onna.h"
 #include "Effect.h"
+#include "Blackhole.h"
 
 //*****************************************************************************
 // É}ÉNÉçíËã`
@@ -496,7 +497,8 @@ void Draw(void)
 void ReInit(void)
 {
 	InitPlayer(1);
-	InitEnemy(1);
+	InitOnna(1);
+	InitBlackhole(1);
 }
 
 //=============================================================================

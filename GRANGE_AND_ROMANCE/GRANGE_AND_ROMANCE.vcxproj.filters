@@ -75,9 +75,6 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\3Dobject</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
@@ -87,7 +84,14 @@
     <ClCompile Include="meshfield.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Babel.cpp">
+=======
+    <ClCompile Include="Onna.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Blackhole.cpp">
+>>>>>>> master
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,9 +135,6 @@
     <ClInclude Include="Collision.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル\3Dobject</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
@@ -146,8 +147,20 @@
     <ClInclude Include="meshfield.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Babel.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="Onna.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Blackhole.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>ヘッダー ファイル\system</Filter>
+    </ClInclude>
+>>>>>>> master
   </ItemGroup>
 </Project>

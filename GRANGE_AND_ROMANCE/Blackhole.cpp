@@ -1,10 +1,11 @@
 //=============================================================================
 //
-// エネミー処理 [Enemy.cpp]
+// ブラックホールくん処理 [Blackhole.cpp]
 // Author : HAL東京 GP11B341-17 80277 染谷武志
 //
 //=============================================================================
-#include "Enemy.h"
+#include "Blackhole.h"
+#include "Struct.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -17,38 +18,40 @@
 //*****************************************************************************
 // グローバル変数
 //*****************************************************************************
-ENEMY enemyWk[ENEMY_NUM];	// エネミー構造体
+ENEMY blackholeWk[BLACKHOLE_NUM];	// エネミー構造体
 
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT InitEnemy(int type)
+HRESULT InitBlackhole(int type)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	for (int en = 0; en < ENEMY_NUM; en++)
+	for (int en = 0; en < BLACKHOLE_NUM; en++)
 	{
 		// 位置・回転・スケールの初期設定
-		enemyWk[en].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		enemyWk[en].rot = D3DXVECTOR3(0.0f, 180.0f, 0.0f);
-		enemyWk[en].scl = D3DXVECTOR3(3.0f, 3.0f, 3.0f);
+		blackholeWk[en].HP = BLACKHOLE_HP_MAX;
+		blackholeWk[en].HPzan = blackholeWk[en].HP;
+		blackholeWk[en].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		blackholeWk[en].rot = D3DXVECTOR3(0.0f, BLACKHOLE_DIRECTION, 0.0f);
+		blackholeWk[en].scl = D3DXVECTOR3(BLACKHOLE_SCALE, BLACKHOLE_SCALE, BLACKHOLE_SCALE);
 
-		enemyWk[en].D3DTexture = NULL;
-		enemyWk[en].D3DXMesh = NULL;
-		enemyWk[en].D3DXBuffMat = NULL;
-		enemyWk[en].NumMat = 0;
+		blackholeWk[en].D3DTexture = NULL;
+		blackholeWk[en].D3DXMesh = NULL;
+		blackholeWk[en].D3DXBuffMat = NULL;
+		blackholeWk[en].NumMat = 0;
 
 		if (type == 0)
 		{
 			// Xファイルの読み込み
-			if (FAILED(D3DXLoadMeshFromX(ENEMY_XFILE,		// 読み込むモデルファイル名(Xファイル)
+			if (FAILED(D3DXLoadMeshFromX(BLACKHOLE_XFILE,		// 読み込むモデルファイル名(Xファイル)
 				D3DXMESH_SYSTEMMEM,							// メッシュの作成オプションを指定
 				pDevice,									// IDirect3DDevice9インターフェイスへのポインタ
 				NULL,										// 隣接性データを含むバッファへのポインタ
-				&enemyWk[en].D3DXBuffMat,					// マテリアルデータを含むバッファへのポインタ
+				&blackholeWk[en].D3DXBuffMat,					// マテリアルデータを含むバッファへのポインタ
 				NULL,										// エフェクトインスタンスの配列を含むバッファへのポインタ
-				&enemyWk[en].NumMat,						// D3DXMATERIAL構造体の数
-				&enemyWk[en].D3DXMesh)))					// ID3DXMeshインターフェイスへのポインタのアドレス
+				&blackholeWk[en].NumMat,						// D3DXMATERIAL構造体の数
+				&blackholeWk[en].D3DXMesh)))					// ID3DXMeshインターフェイスへのポインタのアドレス
 			{
 				return E_FAIL;
 			}
@@ -57,7 +60,7 @@ HRESULT InitEnemy(int type)
 			// テクスチャの読み込み
 			D3DXCreateTextureFromFile(pDevice,					// デバイスへのポインタ
 				TEXTURE_FILENAME,		// ファイルの名前
-				&enemyWk[en].D3DTexture);	// 読み込むメモリー
+				&blackholeWk[en].D3DTexture);	// 読み込むメモリー
 #endif
 		}
 	}
@@ -68,18 +71,27 @@ HRESULT InitEnemy(int type)
 //=============================================================================
 // 終了処理
 //=============================================================================
-void UninitEnemy(void)
+void UninitBlackhole(void)
 {
-	for (int en = 0; en < ENEMY_NUM; en++)
+	for (int en = 0; en < BLACKHOLE_NUM; en++)
 	{
-		// テクスチャへのポインタ
-		SAFE_DELETE(enemyWk[en].D3DTexture);
+		if (blackholeWk[en].D3DTexture != NULL)
+		{	// テクスチャの開放
+			blackholeWk[en].D3DTexture->Release();
+			blackholeWk[en].D3DTexture = NULL;
+		}
 
-		// メッシュ情報へのポインタ
-		SAFE_DELETE(enemyWk[en].D3DXMesh);
+		if (blackholeWk[en].D3DXMesh != NULL)
+		{	// メッシュの開放
+			blackholeWk[en].D3DXMesh->Release();
+			blackholeWk[en].D3DXMesh = NULL;
+		}
 
-		// マテリアル情報へのポインタ
-		SAFE_DELETE(enemyWk[en].D3DXBuffMat);
+		if (blackholeWk[en].D3DXBuffMat != NULL)
+		{	// マテリアルの開放
+			blackholeWk[en].D3DXBuffMat->Release();
+			blackholeWk[en].D3DXBuffMat = NULL;
+		}
 	}
 
 }
@@ -87,26 +99,26 @@ void UninitEnemy(void)
 //=============================================================================
 // 更新処理
 //=============================================================================
-void UpdateEnemy(void)
+void UpdateBlackhole(void)
 {
 
-	enemyWk[0].pos = D3DXVECTOR3(10.0f, 0.0f, 10.0f);
-	enemyWk[1].pos = D3DXVECTOR3(30.0f, 0.0f, 10.0f);
-	enemyWk[2].pos = D3DXVECTOR3(50.0f, 0.0f, 10.0f);
-	enemyWk[3].pos = D3DXVECTOR3(70.0f, 0.0f, 10.0f);
-	enemyWk[4].pos = D3DXVECTOR3(90.0f, 0.0f, 10.0f);
-	enemyWk[5].pos = D3DXVECTOR3(-10.0f, 0.0f, 30.0f);
-	enemyWk[6].pos = D3DXVECTOR3(-30.0f, 0.0f, 50.0f);
-	enemyWk[7].pos = D3DXVECTOR3(-50.0f, 0.0f, 70.0f);
-	enemyWk[8].pos = D3DXVECTOR3(-70.0f, 0.0f, 90.0f);
-	enemyWk[9].pos = D3DXVECTOR3(-90.0f, 0.0f, 100.0f);
+	blackholeWk[0].pos = D3DXVECTOR3(-10.0f, 0.0f, -10.0f);
+	blackholeWk[1].pos = D3DXVECTOR3(-30.0f, 0.0f, -10.0f);
+	blackholeWk[2].pos = D3DXVECTOR3(-50.0f, 0.0f, -10.0f);
+	blackholeWk[3].pos = D3DXVECTOR3(-70.0f, 0.0f, -10.0f);
+	blackholeWk[4].pos = D3DXVECTOR3(-90.0f, 0.0f, -10.0f);
+	blackholeWk[5].pos = D3DXVECTOR3(10.0f, 0.0f, -30.0f);
+	blackholeWk[6].pos = D3DXVECTOR3(30.0f, 0.0f, -50.0f);
+	blackholeWk[7].pos = D3DXVECTOR3(50.0f, 0.0f, -70.0f);
+	blackholeWk[8].pos = D3DXVECTOR3(70.0f, 0.0f, -90.0f);
+	blackholeWk[9].pos = D3DXVECTOR3(90.0f, 0.0f, -100.0f);
 
 }
 
 //=============================================================================
 // 描画処理
 //=============================================================================
-void DrawEnemy(void)
+void DrawBlackhole(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	D3DXMATRIX mtxScl, mtxRot, mtxTranslate, g_mtxWorld;
@@ -114,21 +126,21 @@ void DrawEnemy(void)
 	D3DMATERIAL9 matDef;
 
 
-	for (int en = 0; en < ENEMY_NUM; en++)
+	for (int en = 0; en < BLACKHOLE_NUM; en++)
 	{
 		// ワールドマトリックスの初期化
 		D3DXMatrixIdentity(&g_mtxWorld);
 
 		// スケールを反映
-		D3DXMatrixScaling(&mtxScl, enemyWk[en].scl.x, enemyWk[en].scl.y, enemyWk[en].scl.z);
+		D3DXMatrixScaling(&mtxScl, blackholeWk[en].scl.x, blackholeWk[en].scl.y, blackholeWk[en].scl.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
 
 		// 回転を反映
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, enemyWk[en].rot.y, enemyWk[en].rot.x, enemyWk[en].rot.z);
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, blackholeWk[en].rot.y, blackholeWk[en].rot.x, blackholeWk[en].rot.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
 
 		// 移動を反映
-		D3DXMatrixTranslation(&mtxTranslate, enemyWk[en].pos.x, enemyWk[en].pos.y, enemyWk[en].pos.z);
+		D3DXMatrixTranslation(&mtxTranslate, blackholeWk[en].pos.x, blackholeWk[en].pos.y, blackholeWk[en].pos.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxTranslate);
 
 		// ワールドマトリックスの設定
@@ -138,18 +150,18 @@ void DrawEnemy(void)
 		pDevice->GetMaterial(&matDef);
 
 		// マテリアル情報に対するポインタを取得
-		pD3DXMat = (D3DXMATERIAL*)enemyWk[en].D3DXBuffMat->GetBufferPointer();
+		pD3DXMat = (D3DXMATERIAL*)blackholeWk[en].D3DXBuffMat->GetBufferPointer();
 
-		for (int nCntMat = 0; nCntMat < (int)enemyWk[en].NumMat; nCntMat++)
+		for (int nCntMat = 0; nCntMat < (int)blackholeWk[en].NumMat; nCntMat++)
 		{
 			// マテリアルの設定
 			pDevice->SetMaterial(&pD3DXMat[nCntMat].MatD3D);
 
 			// テクスチャの設定
-			pDevice->SetTexture(0, enemyWk[en].D3DTexture);
+			pDevice->SetTexture(0, blackholeWk[en].D3DTexture);
 
 			// 描画
-			enemyWk[en].D3DXMesh->DrawSubset(nCntMat);
+			blackholeWk[en].D3DXMesh->DrawSubset(nCntMat);
 		}
 
 		// マテリアルをデフォルトに戻す
@@ -162,7 +174,7 @@ void DrawEnemy(void)
 // エネミーの情報を取得する
 // 引数：en エネミー番号
 //=============================================================================
-ENEMY *GetEnemy(int en)
+ENEMY *GetBlackhole(int en)
 {
-	return &enemyWk[en];
+	return &blackholeWk[en];
 }
