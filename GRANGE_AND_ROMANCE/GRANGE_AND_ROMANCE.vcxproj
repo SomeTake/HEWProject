@@ -118,13 +118,13 @@
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\janbo\Downloads\EffekseerRuntime140\EffekseerRuntime140\Compiled\lib\VS2015\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\janbo\OneDrive\ドキュメント\GitHub\HEWProject\GRANGE_AND_ROMANCE\Effekseer\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\janbo\OneDrive\ドキュメント\GitHub\HEWProject\GRANGE_AND_ROMANCE\Effekseer\lib\VS2015\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\wakin.DESKTOP-EOU4OC3\Desktop\HEWProject\GRANGE_AND_ROMANCE\Effekseer\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\wakin.DESKTOP-EOU4OC3\Desktop\HEWProject\GRANGE_AND_ROMANCE\Effekseer\lib\VS2015\Debug;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\wakin.DESKTOP-EOU4OC3\Desktop\HEWProject\GRANGE_AND_ROMANCE\Effekseer\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\wakin.DESKTOP-EOU4OC3\Desktop\HEWProject\GRANGE_AND_ROMANCE\Effekseer\lib\VS2015\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
