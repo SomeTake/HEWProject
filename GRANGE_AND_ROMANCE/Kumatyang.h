@@ -1,11 +1,11 @@
 //=============================================================================
 //
-// バーベル処理 [Babel.h]
+// くまちゃん処理 [Kumatyang.h]
 // Author : HAL東京 GP11B341-01 80163 飯塚春輝
 //
 //=============================================================================
-#ifndef _BABEL_H_
-#define _BABEL_H_
+#ifndef _KUMATYANG_H_
+#define _KUMATYANG_H_
 
 #include "main.h"
 
@@ -13,10 +13,10 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	BABEL_XFILE		"data/MODEL/babel.x"		// 読み込むモデル名
-#define BABEL_NUM		(10)						// バーベルの数
-#define BABEL_DIRECTION	(200.0f)
-#define BABEL_SCALE		(3.0f)
+#define	KUMATYANG_XFILE		"data/MODEL/kumazyang.x"	// 読み込むモデル名
+#define KUMATYANG_NUM		(10)						// バーベルの数
+#define KUMATYANG_DIRECTION	(200.0f)
+#define KUMATYANG_SCALE		(3.0f)
 
 //*****************************************************************************
 // グローバル変数
@@ -25,9 +25,9 @@
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
-HRESULT InitBabel(int type);
-void UninitBabel(void);
-void UpdateBabel(void);
-void DrawBabel(void);
+HRESULT InitKumatyang(int type);
+void UninitKumatyang(void);
+void UpdateKumatyang(void);
+void DrawKumatyang(void);
 
 #endif

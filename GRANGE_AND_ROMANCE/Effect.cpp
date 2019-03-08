@@ -209,7 +209,7 @@ void DrawEffect(void)
 //=============================================================================
 // エフェクトを設置する
 //=============================================================================
-void SetEffect(D3DXVECTOR3 Pos, D3DXVECTOR3 PPos, int EffectType, int no)
+void SetEffect(D3DXVECTOR3 Pos, int EffectType, int no)
 {
 
 	int Effect_No = 0;
@@ -218,7 +218,7 @@ void SetEffect(D3DXVECTOR3 Pos, D3DXVECTOR3 PPos, int EffectType, int no)
 	{
 		if (Effect[no].use == false)
 		{
-			Effect[no].ID = EffectCtrl.Manager->Play(EffectCtrl.Effect[EffectType], Pos.x+=PPos.x, Pos.y += PPos.y, Pos.z += PPos.z);
+			Effect[no].ID = EffectCtrl.Manager->Play(EffectCtrl.Effect[EffectType], Pos.x, Pos.y , Pos.z );
 			Effect[no].pos = Pos;
 			Effect[no].EffectType = EffectType;
 			Effect[no].use = true;

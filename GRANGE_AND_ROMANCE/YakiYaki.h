@@ -1,11 +1,11 @@
 //=============================================================================
 //
-// バーベル処理 [Babel.h]
+// やきやき処理 [YakiYaki.h]
 // Author : HAL東京 GP11B341-01 80163 飯塚春輝
 //
 //=============================================================================
-#ifndef _BABEL_H_
-#define _BABEL_H_
+#ifndef _YAKIYAKI_H_
+#define _YAKIYAKI_H_
 
 #include "main.h"
 
@@ -13,10 +13,10 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define	BABEL_XFILE		"data/MODEL/babel.x"		// 読み込むモデル名
-#define BABEL_NUM		(10)						// バーベルの数
-#define BABEL_DIRECTION	(200.0f)
-#define BABEL_SCALE		(3.0f)
+#define	YAKIYAKI_XFILE		"data/MODEL/YakiYaki.x"	// 読み込むモデル名
+#define YAKIYAKI_NUM		(10)						// バーベルの数
+#define YAKIYAKI_DIRECTION	(200.0f)
+#define YAKIYAKI_SCALE		(3.0f)
 
 //*****************************************************************************
 // グローバル変数
@@ -25,9 +25,9 @@
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
-HRESULT InitBabel(int type);
-void UninitBabel(void);
-void UpdateBabel(void);
-void DrawBabel(void);
+HRESULT InitYakiYaki(int type);
+void UninitYakiYaki(void);
+void UpdateYakiYaki(void);
+void DrawYakiYaki(void);
 
 #endif

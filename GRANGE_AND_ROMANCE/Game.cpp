@@ -9,11 +9,10 @@
 #include "Onna.h"
 #include "Gauge.h"
 #include "meshfield.h"
-<<<<<<< HEAD
-#include "Babel.h"
-=======
 #include "Blackhole.h"
->>>>>>> master
+#include "Babel.h"
+#include "Kumatyang.h"
+#include "YakiYaki.h"
 
 //*****************************************************************************
 // ÉOÉçÅ[ÉoÉãïœêî
@@ -28,12 +27,10 @@ HRESULT InitGame(void)
 	InitPlayer(0);
 	InitOnna(0);
 	InitGauge(0);
-<<<<<<< HEAD
-	InitBabel(0);
-=======
 	InitBlackhole(0);
->>>>>>> master
-
+	InitBabel(0);
+	InitKumatyang(0);
+	InitYakiYaki(0);
 	return S_OK;
 }
 
@@ -46,11 +43,10 @@ void UninitGame(void)
 	UninitPlayer();
 	UninitOnna();
 	UninitGauge();
-<<<<<<< HEAD
-	UninitBabel();
-=======
 	UninitBlackhole();
->>>>>>> master
+	UninitBabel();
+	UninitKumatyang();
+	UninitYakiYaki();
 
 }
 
@@ -63,11 +59,10 @@ void UpdateGame(void)
 	UpdatePlayer();
 	UpdateOnna();
 	UpdateGauge();
-<<<<<<< HEAD
-	UpdateBabel();
-=======
 	UpdateBlackhole();
->>>>>>> master
+	UpdateBabel();
+	UpdateKumatyang();
+	UpdateYakiYaki();
 
 }
 
@@ -80,11 +75,10 @@ void DrawGame(void)
 	DrawPlayer();
 	DrawOnna();
 	DrawGauge();
-<<<<<<< HEAD
-	DrawBabel();
-=======
 	DrawBlackhole();
->>>>>>> master
+	DrawBabel();
+	DrawKumatyang();
+	DrawYakiYaki();
 
 }
 

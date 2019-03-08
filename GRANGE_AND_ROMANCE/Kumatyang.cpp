@@ -1,11 +1,11 @@
 //=============================================================================
 //
-// バーベル処理 [Babel.cpp]
+// くまちゃん処理 [Kumatyang.cpp]
 // Author : HAL東京 GP11B341-01 80163 飯塚春輝
 //
 //=============================================================================
 #include "Struct.h"
-#include "Babel.h"
+#include "Kumatyang.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -18,38 +18,38 @@
 //*****************************************************************************
 // グローバル変数
 //*****************************************************************************
-ITEM babelWk[BABEL_NUM];	// アイテム構造体
+ITEM kumatyangWk[KUMATYANG_NUM];	// アイテム構造体
 
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT InitBabel(int type)
+HRESULT InitKumatyang(int type)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	for (int in = 0; in < BABEL_NUM; in++)
+	for (int in = 0; in < KUMATYANG_NUM; in++)
 	{
 		// 位置・回転・スケールの初期設定
-		babelWk[in].pos = D3DXVECTOR3(CreateRandomFloat(-100.0f, 100.0f), 0.0f, CreateRandomFloat(-10.0f, 10.0f));
-		babelWk[in].rot = D3DXVECTOR3(0.0f, BABEL_DIRECTION, 0.0f);
-		babelWk[in].scl = D3DXVECTOR3(BABEL_SCALE, BABEL_SCALE, BABEL_SCALE);
+		kumatyangWk[in].pos = D3DXVECTOR3(CreateRandomFloat(-100.0f, 100.0f), 0.0f, CreateRandomFloat(-10.0f, 10.0f));
+		kumatyangWk[in].rot = D3DXVECTOR3(0.0f, KUMATYANG_DIRECTION, 0.0f);
+		kumatyangWk[in].scl = D3DXVECTOR3(KUMATYANG_SCALE, KUMATYANG_SCALE, KUMATYANG_SCALE);
 
-		babelWk[in].D3DTexture = NULL;
-		babelWk[in].D3DXMesh = NULL;
-		babelWk[in].D3DXBuffMat = NULL;
-		babelWk[in].NumMat = 0;
+		kumatyangWk[in].D3DTexture = NULL;
+		kumatyangWk[in].D3DXMesh = NULL;
+		kumatyangWk[in].D3DXBuffMat = NULL;
+		kumatyangWk[in].NumMat = 0;
 
 		if (type == 0)
 		{
 			// Xファイルの読み込み
-			if (FAILED(D3DXLoadMeshFromX(BABEL_XFILE,		// 読み込むモデルファイル名(Xファイル)
+			if (FAILED(D3DXLoadMeshFromX(KUMATYANG_XFILE,		// 読み込むモデルファイル名(Xファイル)
 				D3DXMESH_SYSTEMMEM,							// メッシュの作成オプションを指定
 				pDevice,									// IDirect3DDevice9インターフェイスへのポインタ
 				NULL,										// 隣接性データを含むバッファへのポインタ
-				&babelWk[in].D3DXBuffMat,					// マテリアルデータを含むバッファへのポインタ
+				&kumatyangWk[in].D3DXBuffMat,					// マテリアルデータを含むバッファへのポインタ
 				NULL,										// エフェクトインスタンスの配列を含むバッファへのポインタ
-				&babelWk[in].NumMat,						// D3DXMATERIAL構造体の数
-				&babelWk[in].D3DXMesh)))					// ID3DXMeshインターフェイスへのポインタのアドレス
+				&kumatyangWk[in].NumMat,						// D3DXMATERIAL構造体の数
+				&kumatyangWk[in].D3DXMesh)))					// ID3DXMeshインターフェイスへのポインタのアドレス
 			{
 				return E_FAIL;
 			}
@@ -58,7 +58,7 @@ HRESULT InitBabel(int type)
 			// テクスチャの読み込み
 			D3DXCreateTextureFromFile(pDevice,					// デバイスへのポインタ
 				TEXTURE_FILENAME,		// ファイルの名前
-				&babelWk[en].D3DTexture);	// 読み込むメモリー
+				&kumatyangWk[en].D3DTexture);	// 読み込むメモリー
 #endif
 		}
 	}
@@ -69,26 +69,26 @@ HRESULT InitBabel(int type)
 //=============================================================================
 // 終了処理
 //=============================================================================
-void UninitBabel(void)
+void UninitKumatyang(void)
 {
-	for (int in = 0; in < BABEL_NUM; in++)
+	for (int in = 0; in < KUMATYANG_NUM; in++)
 	{
-		if (babelWk[in].D3DTexture != NULL)
+		if (kumatyangWk[in].D3DTexture != NULL)
 		{	// テクスチャの開放
-			babelWk[in].D3DTexture->Release();
-			babelWk[in].D3DTexture = NULL;
+			kumatyangWk[in].D3DTexture->Release();
+			kumatyangWk[in].D3DTexture = NULL;
 		}
 
-		if (babelWk[in].D3DXMesh != NULL)
+		if (kumatyangWk[in].D3DXMesh != NULL)
 		{	// メッシュの開放
-			babelWk[in].D3DXMesh->Release();
-			babelWk[in].D3DXMesh = NULL;
+			kumatyangWk[in].D3DXMesh->Release();
+			kumatyangWk[in].D3DXMesh = NULL;
 		}
 
-		if (babelWk[in].D3DXBuffMat != NULL)
+		if (kumatyangWk[in].D3DXBuffMat != NULL)
 		{	// マテリアルの開放
-			babelWk[in].D3DXBuffMat->Release();
-			babelWk[in].D3DXBuffMat = NULL;
+			kumatyangWk[in].D3DXBuffMat->Release();
+			kumatyangWk[in].D3DXBuffMat = NULL;
 		}
 	}
 
@@ -97,7 +97,7 @@ void UninitBabel(void)
 //=============================================================================
 // 更新処理
 //=============================================================================
-void UpdateBabel(void)
+void UpdateKumatyang(void)
 {
 
 
@@ -106,7 +106,7 @@ void UpdateBabel(void)
 //=============================================================================
 // 描画処理
 //=============================================================================
-void DrawBabel(void)
+void DrawKumatyang(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	D3DXMATRIX mtxScl, mtxRot, mtxTranslate, g_mtxWorld;
@@ -114,21 +114,21 @@ void DrawBabel(void)
 	D3DMATERIAL9 matDef;
 
 
-	for (int in = 0; in < BABEL_NUM; in++)
+	for (int in = 0; in < KUMATYANG_NUM; in++)
 	{
 		// ワールドマトリックスの初期化
 		D3DXMatrixIdentity(&g_mtxWorld);
 
 		// スケールを反映
-		D3DXMatrixScaling(&mtxScl, babelWk[in].scl.x, babelWk[in].scl.y, babelWk[in].scl.z);
+		D3DXMatrixScaling(&mtxScl, kumatyangWk[in].scl.x, kumatyangWk[in].scl.y, kumatyangWk[in].scl.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
 
 		// 回転を反映
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, babelWk[in].rot.y, babelWk[in].rot.x, babelWk[in].rot.z);
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, kumatyangWk[in].rot.y, kumatyangWk[in].rot.x, kumatyangWk[in].rot.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
 
 		// 移動を反映
-		D3DXMatrixTranslation(&mtxTranslate, babelWk[in].pos.x, babelWk[in].pos.y, babelWk[in].pos.z);
+		D3DXMatrixTranslation(&mtxTranslate, kumatyangWk[in].pos.x, kumatyangWk[in].pos.y, kumatyangWk[in].pos.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxTranslate);
 
 		// ワールドマトリックスの設定
@@ -138,18 +138,18 @@ void DrawBabel(void)
 		pDevice->GetMaterial(&matDef);
 
 		// マテリアル情報に対するポインタを取得
-		pD3DXMat = (D3DXMATERIAL*)babelWk[in].D3DXBuffMat->GetBufferPointer();
+		pD3DXMat = (D3DXMATERIAL*)kumatyangWk[in].D3DXBuffMat->GetBufferPointer();
 
-		for (int nCntMat = 0; nCntMat < (int)babelWk[in].NumMat; nCntMat++)
+		for (int nCntMat = 0; nCntMat < (int)kumatyangWk[in].NumMat; nCntMat++)
 		{
 			// マテリアルの設定
 			pDevice->SetMaterial(&pD3DXMat[nCntMat].MatD3D);
 
 			// テクスチャの設定
-			pDevice->SetTexture(0, babelWk[in].D3DTexture);
+			pDevice->SetTexture(0, kumatyangWk[in].D3DTexture);
 
 			// 描画
-			babelWk[in].D3DXMesh->DrawSubset(nCntMat);
+			kumatyangWk[in].D3DXMesh->DrawSubset(nCntMat);
 		}
 
 		// マテリアルをデフォルトに戻す
@@ -160,9 +160,9 @@ void DrawBabel(void)
 
 //=============================================================================
 // アイテムの情報を取得する
-// 引数：in バーベル番号
+// 引数：in くまちゃん番号
 //=============================================================================
-ITEM *GetBabel(int in)
+ITEM *GetKumatyang(int in)
 {
-	return &babelWk[in];
+	return &kumatyangWk[in];
 }

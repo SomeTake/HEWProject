@@ -84,14 +84,19 @@
     <ClCompile Include="meshfield.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Babel.cpp">
-=======
     <ClCompile Include="Onna.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
     <ClCompile Include="Blackhole.cpp">
->>>>>>> master
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Babel.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Kumatyang.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="YakiYaki.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -147,11 +152,6 @@
     <ClInclude Include="meshfield.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Babel.h">
-      <Filter>ヘッダー ファイル\3Dobject</Filter>
-    </ClInclude>
-=======
     <ClInclude Include="Onna.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
@@ -161,6 +161,14 @@
     <ClInclude Include="Struct.h">
       <Filter>ヘッダー ファイル\system</Filter>
     </ClInclude>
->>>>>>> master
+    <ClInclude Include="Babel.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Kumatyang.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="YakiYaki.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

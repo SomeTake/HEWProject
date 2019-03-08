@@ -58,5 +58,16 @@ typedef struct {
 	int					HPzan;				// 残り体力
 }ENEMY;
 
+// アイテムキャラクター用
+typedef struct {
+	LPDIRECT3DTEXTURE9	D3DTexture;			// テクスチャへのポインタ
+	LPD3DXMESH			D3DXMesh;			// メッシュ情報へのポインタ
+	LPD3DXBUFFER		D3DXBuffMat;		// マテリアル情報へのポインタ
+	DWORD				NumMat;				// マテリアル情報の数
+	D3DXVECTOR3			pos;				// モデルの位置
+	D3DXVECTOR3			move;				// モデルの移動量
+	D3DXVECTOR3			rot;				// 現在の向き
+	D3DXVECTOR3			scl;				// モデルの大きさ(スケール)
+}ITEM;
 
 #endif
