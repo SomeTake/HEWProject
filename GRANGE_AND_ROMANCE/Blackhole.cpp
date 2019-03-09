@@ -4,8 +4,8 @@
 // Author : HAL東京 GP11B341-17 80277 染谷武志
 //
 //=============================================================================
-#include "Blackhole.h"
 #include "Struct.h"
+#include "Blackhole.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -40,6 +40,7 @@ HRESULT InitBlackhole(int type)
 		blackholeWk[en].D3DXMesh = NULL;
 		blackholeWk[en].D3DXBuffMat = NULL;
 		blackholeWk[en].NumMat = 0;
+		blackholeWk[en].use = true;
 
 		if (type == 0)
 		{
@@ -101,18 +102,19 @@ void UninitBlackhole(void)
 //=============================================================================
 void UpdateBlackhole(void)
 {
+	for (int en = 0; en < BLACKHOLE_NUM; en++)
+	{
+		// 使用している場合のみ更新
+		if (blackholeWk[en].use)
+		{
 
-	blackholeWk[0].pos = D3DXVECTOR3(-10.0f, 0.0f, -10.0f);
-	blackholeWk[1].pos = D3DXVECTOR3(-30.0f, 0.0f, -10.0f);
-	blackholeWk[2].pos = D3DXVECTOR3(-50.0f, 0.0f, -10.0f);
-	blackholeWk[3].pos = D3DXVECTOR3(-70.0f, 0.0f, -10.0f);
-	blackholeWk[4].pos = D3DXVECTOR3(-90.0f, 0.0f, -10.0f);
-	blackholeWk[5].pos = D3DXVECTOR3(10.0f, 0.0f, -30.0f);
-	blackholeWk[6].pos = D3DXVECTOR3(30.0f, 0.0f, -50.0f);
-	blackholeWk[7].pos = D3DXVECTOR3(50.0f, 0.0f, -70.0f);
-	blackholeWk[8].pos = D3DXVECTOR3(70.0f, 0.0f, -90.0f);
-	blackholeWk[9].pos = D3DXVECTOR3(90.0f, 0.0f, -100.0f);
-
+			// HP0になったら消滅
+			if (blackholeWk[en].HPzan == 0)
+			{
+				blackholeWk[en].use = false;
+			}
+		}
+	}
 }
 
 //=============================================================================
@@ -128,45 +130,47 @@ void DrawBlackhole(void)
 
 	for (int en = 0; en < BLACKHOLE_NUM; en++)
 	{
-		// ワールドマトリックスの初期化
-		D3DXMatrixIdentity(&g_mtxWorld);
-
-		// スケールを反映
-		D3DXMatrixScaling(&mtxScl, blackholeWk[en].scl.x, blackholeWk[en].scl.y, blackholeWk[en].scl.z);
-		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
-
-		// 回転を反映
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, blackholeWk[en].rot.y, blackholeWk[en].rot.x, blackholeWk[en].rot.z);
-		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
-
-		// 移動を反映
-		D3DXMatrixTranslation(&mtxTranslate, blackholeWk[en].pos.x, blackholeWk[en].pos.y, blackholeWk[en].pos.z);
-		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxTranslate);
-
-		// ワールドマトリックスの設定
-		pDevice->SetTransform(D3DTS_WORLD, &g_mtxWorld);
-
-		// 現在のマテリアルを取得
-		pDevice->GetMaterial(&matDef);
-
-		// マテリアル情報に対するポインタを取得
-		pD3DXMat = (D3DXMATERIAL*)blackholeWk[en].D3DXBuffMat->GetBufferPointer();
-
-		for (int nCntMat = 0; nCntMat < (int)blackholeWk[en].NumMat; nCntMat++)
+		if (blackholeWk[en].use)
 		{
-			// マテリアルの設定
-			pDevice->SetMaterial(&pD3DXMat[nCntMat].MatD3D);
+			// ワールドマトリックスの初期化
+			D3DXMatrixIdentity(&g_mtxWorld);
 
-			// テクスチャの設定
-			pDevice->SetTexture(0, blackholeWk[en].D3DTexture);
+			// スケールを反映
+			D3DXMatrixScaling(&mtxScl, blackholeWk[en].scl.x, blackholeWk[en].scl.y, blackholeWk[en].scl.z);
+			D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
 
-			// 描画
-			blackholeWk[en].D3DXMesh->DrawSubset(nCntMat);
+			// 回転を反映
+			D3DXMatrixRotationYawPitchRoll(&mtxRot, blackholeWk[en].rot.y, blackholeWk[en].rot.x, blackholeWk[en].rot.z);
+			D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
+
+			// 移動を反映
+			D3DXMatrixTranslation(&mtxTranslate, blackholeWk[en].pos.x, blackholeWk[en].pos.y, blackholeWk[en].pos.z);
+			D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxTranslate);
+
+			// ワールドマトリックスの設定
+			pDevice->SetTransform(D3DTS_WORLD, &g_mtxWorld);
+
+			// 現在のマテリアルを取得
+			pDevice->GetMaterial(&matDef);
+
+			// マテリアル情報に対するポインタを取得
+			pD3DXMat = (D3DXMATERIAL*)blackholeWk[en].D3DXBuffMat->GetBufferPointer();
+
+			for (int nCntMat = 0; nCntMat < (int)blackholeWk[en].NumMat; nCntMat++)
+			{
+				// マテリアルの設定
+				pDevice->SetMaterial(&pD3DXMat[nCntMat].MatD3D);
+
+				// テクスチャの設定
+				pDevice->SetTexture(0, blackholeWk[en].D3DTexture);
+
+				// 描画
+				blackholeWk[en].D3DXMesh->DrawSubset(nCntMat);
+			}
+
+			// マテリアルをデフォルトに戻す
+			pDevice->SetMaterial(&matDef);
 		}
-
-		// マテリアルをデフォルトに戻す
-		pDevice->SetMaterial(&matDef);
-
 	}
 }
 

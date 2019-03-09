@@ -8,6 +8,7 @@
 #define _GAME_H_
 
 #include "Main.h"
+#include "Struct.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -24,5 +25,8 @@ HRESULT InitGame(void);
 void UninitGame(void);
 void UpdateGame(void);
 void DrawGame(void);
+
+void AddDamageEnemy(ENEMY *enemy, int damage);		// エネミーにダメージを与える
+void AddDamagePlayer(CHARA *player, int damage);	// プレイヤーにダメージを与える
 
 #endif
