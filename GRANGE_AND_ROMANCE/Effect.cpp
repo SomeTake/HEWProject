@@ -27,7 +27,7 @@ EFFECT					Effect[EffectMax];
 
 static const EFK_CHAR* EffectFileName[] =
 {
-	(const EFK_CHAR*)L"data/EFFECT/bush.efk",
+	(const EFK_CHAR*)L"data/EFFECT/blow.efk",
 	(const EFK_CHAR*)L"data/EFFECT/FireCircle.efk",
 
 };
