@@ -13,8 +13,12 @@
 #include "Babel.h"
 #include "Kumatyang.h"
 #include "YakiYaki.h"
+<<<<<<< HEAD:GRANGE_AND_ROMANCE/Game.cpp
 <<<<<<< HEAD
 #include "Meshwall.h"
+=======
+#include "Meshfield.h"
+>>>>>>> b96be5230b4eadb2b0e522d1e41ab817c456e042:GRUNGE_AND_ROMANCE/Game.cpp
 #include "Effect.h"
 =======
 >>>>>>> parent of e81f7cc... Effect
@@ -29,16 +33,6 @@
 HRESULT InitGame(void)
 {
 	InitMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 16, 16, 80.0f, 80.0f);
-	// ï«ÇÃèâä˙âª
-	InitMeshWall(D3DXVECTOR3(0.0f, 0.0f, 640.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f),
-		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), 16, 2, 80.0f, 80.0f);
-	InitMeshWall(D3DXVECTOR3(-640.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, -D3DX_PI * 0.50f, 0.0f),
-		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), 16, 2, 80.0f, 80.0f);
-	InitMeshWall(D3DXVECTOR3(640.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, D3DX_PI * 0.50f, 0.0f),
-		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), 16, 2, 80.0f, 80.0f);
-	InitMeshWall(D3DXVECTOR3(0.0f, 0.0f, -640.0f), D3DXVECTOR3(0.0f, D3DX_PI, 0.0f),
-		D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.25f), 16, 2, 80.0f, 80.0f);
-
 	InitPlayer(0);
 	InitOnna(0);
 	InitGauge(0);
@@ -62,7 +56,7 @@ void UninitGame(void)
 	UninitBabel();
 	UninitKumatyang();
 	UninitYakiYaki();
-	UninitMeshWall();
+	UninitMeshField();
 
 }
 
@@ -79,8 +73,12 @@ void UpdateGame(void)
 	UpdateBabel();
 	UpdateKumatyang();
 	UpdateYakiYaki();
+<<<<<<< HEAD:GRANGE_AND_ROMANCE/Game.cpp
 <<<<<<< HEAD
 	UpdateMeshWall();
+=======
+	UpdateMeshField();
+>>>>>>> b96be5230b4eadb2b0e522d1e41ab817c456e042:GRUNGE_AND_ROMANCE/Game.cpp
 	UpdateEffect();
 =======
 >>>>>>> parent of e81f7cc... Effect
@@ -92,7 +90,6 @@ void UpdateGame(void)
 //=============================================================================
 void DrawGame(void)
 {
-	DrawMeshWall();
 	DrawMeshField();
 	DrawPlayer();
 	DrawOnna();
