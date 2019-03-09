@@ -11,6 +11,10 @@
 #include "Camera.h"
 #include "D3DXAnimation.h"
 #include "Effect.h"
+#include "Onna.h"
+#include "Blackhole.h"
+#include "Debugproc.h"
+#include "Game.h"
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -191,6 +195,13 @@ void UninitPlayer(void)
 //=============================================================================
 void UpdatePlayer(void)
 {
+	ENEMY *OnnaWk = GetOnna(0);
+	ENEMY *BlackholeWk = GetBlackhole(0);
+
+#ifdef _DEBUG
+	PrintDebugProc("ヒットフラグ %s", playerWk[0].HitFrag ? "true" : "false");
+#endif
+
 	for (int pn = 0; pn < PLAYER_NUM; pn++)
 	{
 		// アニメーションを更新
@@ -218,6 +229,38 @@ void UpdatePlayer(void)
 		{
 			Mtx = GetBoneMatrix(playerWk[pn].Animation, CharaHitPos[i]);
 			UpdateCollision(&playerWk[pn].Collision[i], Mtx);
+		}
+
+		// 攻撃による当たり判定
+		if (playerWk[pn].HitFrag == false)
+		{
+			// 女.xとの当たり判定
+			for (int num = 0; num < ONNA_NUM; num++)
+			{
+				if (OnnaWk[num].use == true)
+				{
+					if (HitCheckPToE(&playerWk[pn], &OnnaWk[num]) == true)
+					{
+						// 当たったあとの動き
+						playerWk[pn].HitFrag = true;
+						HitAction(pn, &OnnaWk[num]);
+					}
+				}
+			}
+
+			// ブラックホールくんとの当たり判定
+			for (int num = 0; num < BLACKHOLE_NUM; num++)
+			{
+				if (BlackholeWk[num].use == true)
+				{
+					if (HitCheckPToE(&playerWk[pn], &BlackholeWk[num]) == true)
+					{
+						// 当たったあとの動き
+						playerWk[num].HitFrag = true;
+						HitAction(pn, &BlackholeWk[num]);
+					}
+				}
+			}
 		}
 	}
 }
@@ -496,10 +539,14 @@ void ControlPlayer(int pn)
 		break;
 	case Jab:
 		// 攻撃ヒット時追加入力でストレート攻撃が出る
-		// ストレート PS4□
-		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(pn, BUTTON_A))
+		if (playerWk[pn].HitFrag)
 		{
-			playerWk[pn].Animation->ChangeAnimation(playerWk[pn].Animation, Straight, Data[Straight].Spd);
+			// ストレート PS4□
+			if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(pn, BUTTON_A))
+			{
+				playerWk[pn].Animation->ChangeAnimation(playerWk[pn].Animation, Straight, Data[Straight].Spd);
+				playerWk[pn].HitFrag = false;
+			}
 		}
 		// アニメーション終了で待機に戻る
 		if (playerWk[pn].Animation->MotionEnd == true)
@@ -510,12 +557,15 @@ void ControlPlayer(int pn)
 		break;
 	case Straight:
 		// 攻撃ヒット時追加入力でアッパー攻撃が出る
-		// アッパー PS4□
-		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(pn, BUTTON_A))
+		if (playerWk[pn].HitFrag)
 		{
-			playerWk[pn].Animation->ChangeAnimation(playerWk[pn].Animation, Upper, Data[Upper].Spd);
+			// アッパー PS4□
+			if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(pn, BUTTON_A))
+			{
+				playerWk[pn].Animation->ChangeAnimation(playerWk[pn].Animation, Upper, Data[Upper].Spd);
+				playerWk[pn].HitFrag = false;
+			}
 		}
-
 		// アニメーション終了で待機に戻る
 		if (playerWk[pn].Animation->MotionEnd == true)
 		{
@@ -662,16 +712,65 @@ void MovePlayer(int pn)
 	playerWk[pn].pos.y += playerWk[pn].move.y;
 	playerWk[pn].pos.z += playerWk[pn].move.z;
 
-	EFFECT *Effect = GetEffect(0);
-
-	Effect->Ppos.x = playerWk[pn].pos.x;
-	Effect->Ppos.y = playerWk[pn].pos.y;
-	Effect->Ppos.z = playerWk[pn].pos.z;
-
 	// (半径*角度)＋基準座標でプレイヤーの座標を計算する
 
 	// 移動量をリセットする
 	playerWk[pn].move.x = 0.0f;
 	playerWk[pn].move.y = 0.0f;
 	playerWk[pn].move.z = 0.0f;
+}
+
+//=============================================================================
+// 攻撃ヒット時のアクション
+//=============================================================================
+void HitAction(int pn, ENEMY *enemy)
+{
+	switch (playerWk[pn].Animation->CurrentAnimID)
+	{
+	case Jab:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Jab].Damage);
+		// SE
+		// エフェクト
+		SetEffect(playerWk[pn].Collision[LeftHand].pos, HitEffect);
+		break;
+	case Straight:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Straight].Damage);
+		// SE
+		// エフェクト
+		SetEffect(playerWk[pn].Collision[RightHand].pos, HitEffect);
+		break;
+	case Upper:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Upper].Damage);
+		// SE
+		// エフェクト
+		SetEffect(playerWk[pn].Collision[LeftHand].pos, HitEffect);
+		break;
+	case Kick:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Kick].Damage);
+		// SE
+		// エフェクト
+		SetEffect(playerWk[pn].Collision[RightFoot].pos, HitEffect);
+		break;
+	case Pickup:
+		break;
+	case Attackitem:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Attackitem].Damage);
+		// SE
+		// エフェクト
+		break;
+	case Throwitem:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Throwitem].Damage);
+		// SE
+		// エフェクト
+		break;
+	default:
+		break;
+	}
+
 }

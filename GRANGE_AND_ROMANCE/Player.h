@@ -80,14 +80,14 @@ static BATTLEDATA Data[AnimMax] = {
 { 0, 1.5f, 0.1f, 0, 0 },		// Walk
 { 0, 1.5f, 0.1f, 0, 0 },		// Rightwalk
 { 0, 1.5f, 0.1f, 0, 0 },		// Leftwalk
-{ 0, 1.5f, 0.1f, 0, 0 },		// Jab
-{ 0, 1.5f, 0.1f, 0, 0 },		// Straight
-{ 0, 2.0f, 0.1f, 0, 0 },		// Upper
-{ 0, 1.5f, 0.1f, 0, 0 },		// Kick
+{ 10, 1.5f, 0.1f, 0, 0 },		// Jab
+{ 10, 1.5f, 0.1f, 0, 0 },		// Straight
+{ 10, 2.0f, 0.1f, 0, 0 },		// Upper
+{ 10, 1.5f, 0.1f, 0, 0 },		// Kick
 { 0, 2.0f, 0.1f, 0, 0 },		// Pickup
 { 0, 1.0f, 0.1f, 0, 0 },		// Idleitem
-{ 0, 1.5f, 0.1f, 0, 0 },		// Attackitem
-{ 0, 1.5f, 0.1f, 0, 0 },		// Throwitem
+{ 15, 1.5f, 0.1f, 0, 0 },		// Attackitem
+{ 20, 1.5f, 0.1f, 0, 0 },		// Throwitem
 { 0, 1.5f, 0.1f, 0, 0 },		// Reaction
 };
 
@@ -153,7 +153,8 @@ void UninitPlayer(void);
 void UpdatePlayer(void);
 void DrawPlayer(void);
 CHARA *GetPlayer(int pn);
-void ControlPlayer(int pn);		// 操作
-void MovePlayer(int pn);		// 座標移動
+void ControlPlayer(int pn);						// 操作
+void MovePlayer(int pn);						// 座標移動
+void HitAction(int pn, ENEMY *enemy);			// 攻撃ヒット時のアクション
 
 #endif

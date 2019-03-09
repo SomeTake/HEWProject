@@ -14,6 +14,7 @@
 #include "Kumatyang.h"
 #include "YakiYaki.h"
 #include "Meshwall.h"
+#include "Effect.h"
 
 //*****************************************************************************
 // グローバル変数
@@ -58,7 +59,6 @@ void UninitGame(void)
 	UninitBabel();
 	UninitKumatyang();
 	UninitYakiYaki();
-	// 壁の終了処理
 	UninitMeshWall();
 
 }
@@ -77,6 +77,7 @@ void UpdateGame(void)
 	UpdateKumatyang();
 	UpdateYakiYaki();
 	UpdateMeshWall();
+	UpdateEffect();
 
 }
 
@@ -94,6 +95,33 @@ void DrawGame(void)
 	DrawBabel();
 	DrawKumatyang();
 	DrawYakiYaki();
+	DrawEffect();
 
 }
 
+//=============================================================================
+// エネミーにダメージを与える
+//=============================================================================
+void AddDamageEnemy(ENEMY *enemy, int damage)
+{
+	enemy->HPzan -= damage;
+
+	if (enemy->HPzan < 0)
+	{
+		enemy->HPzan = 0;
+	}
+}
+
+//=============================================================================
+// プレイヤーにダメージを与える
+//=============================================================================
+void AddDamagePlayer(CHARA *player, int damage)
+{
+	player->HPzan -= damage;
+
+	if (player->HPzan < 0)
+	{
+		player->HPzan = 0;
+	}
+
+}

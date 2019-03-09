@@ -5,6 +5,7 @@
 //
 //=============================================================================
 #include "Collision.h"
+#include "Player.h"
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -161,6 +162,34 @@ bool HitSphere(D3DXVECTOR3 AttackPos, D3DXVECTOR3 DefendPos, float AttackRange, 
 	return false;
 }
 
+//=====================================================================================================
+// 当たり判定
+// AttackPos = 攻撃側中心位置, DefendPos = 防御側中心位置, AttackRange = 攻撃側半径, DefendPos = 防御側半径
+//=====================================================================================================
+bool HitSpheretoCircle(D3DXVECTOR3 AttackPos, D3DXVECTOR3 DefendPos, float AttackRange, float DefendRange)
+{
+	// 当たり判定の中心の距離を測る
+	float DistX = AttackPos.x - DefendPos.x;
+	float DistZ = AttackPos.z - DefendPos.z;
+	float dist = sqrtf(DistX * DistX + DistZ * DistZ);
+
+	// 当たり判定の範囲を足した距離を出す（球なのでXYZどれとっても同じ）
+	float hitrange = AttackRange + DefendRange;
+
+	// 当たり判定の中心の距離よりも範囲を足した距離の方が長ければ当たる
+	if (dist <= hitrange)
+	{
+		return true;
+	}
+	// 外れ
+	else
+	{
+
+	}
+
+	return false;
+}
+
 
 //=====================================================================================================
 // プレイヤーの攻撃とエネミーとの当たり判定
@@ -168,5 +197,43 @@ bool HitSphere(D3DXVECTOR3 AttackPos, D3DXVECTOR3 DefendPos, float AttackRange, 
 //=====================================================================================================
 bool HitCheckPToE(CHARA *Player, ENEMY *Enemy)
 {
-	return true;
+	switch (Player->Animation->CurrentAnimID)
+	{
+	case Jab:
+		if (HitSpheretoCircle(Player->Collision[LeftHand].pos, Enemy->pos,
+			Player->Collision[LeftHand].scl.x, Enemy->scl.x) == true)
+		{
+			return true;
+		}
+		break;
+	case Straight:
+		if (HitSpheretoCircle(Player->Collision[RightHand].pos, Enemy->pos,
+			Player->Collision[RightHand].scl.x, Enemy->scl.x) == true)
+		{
+			return true;
+		}
+		break;
+	case Upper:
+		if (HitSpheretoCircle(Player->Collision[LeftHand].pos, Enemy->pos,
+			Player->Collision[LeftHand].scl.x, Enemy->scl.x) == true)
+		{
+			return true;
+		}
+		break;
+	case Kick:
+		if (HitSpheretoCircle(Player->Collision[RightFoot].pos, Enemy->pos,
+			Player->Collision[RightFoot].scl.x, Enemy->scl.x) == true)
+		{
+			return true;
+		}
+		break;
+	case Attackitem:
+		break;
+	case Throwitem:
+		break;
+	default:
+		break;
+	}
+
+	return false;
 }
