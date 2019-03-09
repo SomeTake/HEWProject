@@ -32,7 +32,8 @@ HRESULT InitOnna(int type)
 		// 位置・回転・スケールの初期設定
 		onnaWk[en].HP = ONNA_HP_MAX;
 		onnaWk[en].HPzan = onnaWk[en].HP;
-		onnaWk[en].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		onnaWk[en].Opos = D3DXVECTOR3(0.0f, 0.0f, CreateRandomFloat(-200.0f, 20.0f));
+		onnaWk[en].pos = D3DXVECTOR3(-100.0f, 0.0f, 0.0f);
 		onnaWk[en].rot = D3DXVECTOR3(0.0f, ONNA_DIRECTION, 0.0f);
 		onnaWk[en].scl = D3DXVECTOR3(ONNA_SCALE, ONNA_SCALE, ONNA_SCALE);
 

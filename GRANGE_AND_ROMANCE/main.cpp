@@ -15,7 +15,6 @@
 #include "Ending.h"
 #include "Debugproc.h"
 #include "Onna.h"
-#include "Effect.h"
 #include "Blackhole.h"
 
 //*****************************************************************************
@@ -327,7 +326,6 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	InitTitle();
 	InitGame();
 	InitEnding();
-	InitEffect(true);
 
 	return S_OK;
 }
@@ -374,9 +372,6 @@ void Uninit(void)
 
 	// エンディングの終了処理
 	UninitEnding();
-
-	//エフェクトの終了処理
-	UninitEffect();
 
 }
 
