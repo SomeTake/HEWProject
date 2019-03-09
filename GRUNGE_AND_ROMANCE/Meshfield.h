@@ -7,7 +7,7 @@
 #ifndef _MESHFIELD_H_
 #define _MESHFIELD_H_
 
-#include "main.h"
+#include "Main.h"
 
 //*****************************************************************************
 // プロトタイプ宣言
