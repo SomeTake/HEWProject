@@ -732,24 +732,28 @@ void HitAction(int pn, ENEMY *enemy)
 		AddDamageEnemy(enemy, Data[Jab].Damage);
 		// SE
 		// エフェクト
+		SetEffect(playerWk[pn].Collision[LeftHand].pos, HitEffect);
 		break;
 	case Straight:
 		// ダメージ
 		AddDamageEnemy(enemy, Data[Straight].Damage);
 		// SE
 		// エフェクト
+		SetEffect(playerWk[pn].Collision[RightHand].pos, HitEffect);
 		break;
 	case Upper:
 		// ダメージ
 		AddDamageEnemy(enemy, Data[Upper].Damage);
 		// SE
 		// エフェクト
+		SetEffect(playerWk[pn].Collision[LeftHand].pos, HitEffect);
 		break;
 	case Kick:
 		// ダメージ
 		AddDamageEnemy(enemy, Data[Kick].Damage);
 		// SE
 		// エフェクト
+		SetEffect(playerWk[pn].Collision[RightFoot].pos, HitEffect);
 		break;
 	case Pickup:
 		break;

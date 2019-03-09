@@ -13,6 +13,7 @@
 #include "Babel.h"
 #include "Kumatyang.h"
 #include "YakiYaki.h"
+#include "Effect.h"
 
 //*****************************************************************************
 // グローバル変数
@@ -64,6 +65,9 @@ void UpdateGame(void)
 	UpdateKumatyang();
 	UpdateYakiYaki();
 
+	// エフェクト更新
+	UpdateEffect();
+
 }
 
 //=============================================================================
@@ -72,6 +76,7 @@ void UpdateGame(void)
 void DrawGame(void)
 {
 	DrawMeshField();
+
 	DrawPlayer();
 	DrawOnna();
 	DrawGauge();
@@ -79,6 +84,9 @@ void DrawGame(void)
 	DrawBabel();
 	DrawKumatyang();
 	DrawYakiYaki();
+
+	//エフェクト描画
+	DrawEffect();
 
 }
 
