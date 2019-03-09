@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// エフェクトヘッダー [Effect.h]
+// モデル処理 [effekt.h]
 // Author : 
 //
 //=============================================================================
@@ -12,34 +12,31 @@
 //*****************************************************************************
 enum EffectType
 {
-	HitEffect,
-	FireEffect,
-	HealEffect1,
-	HealEffect2,
-	HewEffect,
-	BushEffect
+	FIRE,
+	WATER,
 };
 
 
 //*****************************************************************************
 // 構造体定義
 //*****************************************************************************
-// エフェクトコントローラー構造体
 typedef struct
 {
-	EffekseerRendererDX9::Renderer		*Render;		// エフェクトレンダ
-	Effekseer::Manager					*Manager;		// エフェクトマネージャー
-	Effekseer::Effect					**Effect;		// エフェクトポインタ
-	int									EffectNum;		// エフェクトの数
+	EffekseerRendererDX9::Renderer		*Render;
+	Effekseer::Manager					*Manager;
+	Effekseer::Effect					**Effect;
+	int									EffectNum;
 }EFFECTCONTROLLER;
 
-// エフェクト構造体
 typedef struct
 {
-	D3DXVECTOR3							pos;			// 座標
-	int									ID;				// エフェクト番号
-	int									EffectType;		// エフェクト種類
-	bool								use;			// 使用フラグ
+	D3DXVECTOR3				pos;
+	D3DXVECTOR3				rot;
+	D3DXVECTOR3				scl;
+	D3DXVECTOR3				Ppos;
+	int						ID;
+	int						EffectType;
+	bool					use;
 }EFFECT;
 
 //*****************************************************************************

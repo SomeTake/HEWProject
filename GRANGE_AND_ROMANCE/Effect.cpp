@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// エフェクト処理 [Effect.cpp]
+// モデル処理 [Effekt.cpp]
 // Author : 
 //
 //=============================================================================
@@ -13,7 +13,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define EFFECT_MAX (1)
+#define EffectMax (1)
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -23,17 +23,16 @@
 // グローバル変数
 //*****************************************************************************
 EFFECTCONTROLLER		EffectCtrl;
-EFFECT					Effect[EFFECT_MAX];
+EFFECT					Effect[EffectMax];
 
 static const EFK_CHAR* EffectFileName[] =
 {
 	(const EFK_CHAR*)L"data/EFFECT/blow.efk",
 	(const EFK_CHAR*)L"data/EFFECT/FireCircle.efk",
-	(const EFK_CHAR*)L"data/EFFECT/HEAL.efk",
-	(const EFK_CHAR*)L"data/EFFECT/HEAL1.efk",
-	(const EFK_CHAR*)L"data/EFFECT/Hew.efk",
-	(const EFK_CHAR*)L"data/EFFECT/Bush.efk",
+
 };
+
+D3DXVECTOR3 at, up, pos,ppos;
 
 //=============================================================================
 // 初期化処理
@@ -43,9 +42,12 @@ HRESULT InitEffect(bool FirstInit)
 	LPDIRECT3DDEVICE9 Device = GetDevice();
 	int Effect_No = 0;
 
-	for (Effect_No = 0; Effect_No < EFFECT_MAX; Effect_No++)
+	for (Effect_No = 0; Effect_No < EffectMax; Effect_No++)
 	{
 		Effect[Effect_No].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);;
+		Effect[Effect_No].Ppos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);;
+		Effect[Effect_No].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);;
+		Effect[Effect_No].scl = D3DXVECTOR3(1.0f, 1.0f, 1.0f);;
 		Effect[Effect_No].ID = -1;
 		Effect[Effect_No].EffectType = -1;
 		Effect[Effect_No].use = true;
@@ -132,20 +134,37 @@ void UpdateEffect(void)
 	int Effect_No = 0;
 	int EffectID = 0;
 
-	for (Effect_No = 0; Effect_No < EFFECT_MAX; Effect_No++)
+	for (Effect_No = 0; Effect_No < EffectMax; Effect_No++)
 	{
-		// 使用しているエフェクトのみ更新
 		if (Effect[Effect_No].use == true)
 		{
 			EffectID = Effect[Effect_No].ID;
-
-			// 再生が1ループしたら終了する
-			if (EffectCtrl.Manager->GetShown(EffectID) == false)
+			if (GetKeyboardTrigger(DIK_O))
 			{
-				EffectCtrl.Manager->StopEffect(Effect[Effect_No].ID);
-				Effect[Effect_No].use = false;
-				continue;
+					int EffectID = EffectCtrl.Manager->Play(EffectCtrl.Effect[FIRE],
+						Effect->Ppos.x, Effect->Ppos.y, Effect->Ppos.z);
+
+					if (GetKeyboardRelease(DIK_O))
+					{
+						EffectCtrl.Manager->StopEffect(Effect[Effect_No].ID);
+						Effect[Effect_No].use = false;
+						continue;
+					}
 			}
+
+			else if (GetKeyboardTrigger(DIK_P))
+			{
+				int EffectID = EffectCtrl.Manager->Play(EffectCtrl.Effect[WATER],
+					Effect->Ppos.x, Effect->Ppos.y, Effect->Ppos.z);
+
+				if (GetKeyboardRelease(DIK_P))
+				{
+					EffectCtrl.Manager->StopEffect(Effect[Effect_No].ID);
+					Effect[Effect_No].use = false;
+					continue;
+				}
+			}
+
 		}
 	}
 
@@ -163,15 +182,17 @@ void DrawEffect(void)
 {
 	CAMERA *cameraWk = GetCamera(0);
 
+	pos=cameraWk->pos;
+	at = cameraWk->at;
+	up = cameraWk->up;
+
 	// 投影行列を設定
 	EffectCtrl.Render->SetProjectionMatrix(
 		::Effekseer::Matrix44().PerspectiveFovLH(VIEW_ANGLE, VIEW_ASPECT, VIEW_NEAR_Z, VIEW_FAR_Z));
 
 	// カメラ行列を設定
 	EffectCtrl.Render->SetCameraMatrix(
-		::Effekseer::Matrix44().LookAtLH(::Effekseer::Vector3D(cameraWk->pos.x, cameraWk->pos.y, cameraWk->pos.z),
-			::Effekseer::Vector3D(cameraWk->at.x, cameraWk->at.y, cameraWk->at.z + 50.0f), 
-			::Effekseer::Vector3D(cameraWk->up.x, cameraWk->up.y, cameraWk->up.z)));
+		::Effekseer::Matrix44().LookAtLH(::Effekseer::Vector3D(pos.x, pos.y, pos.z), ::Effekseer::Vector3D(at.x, at.y, at.z + 50.0f), ::Effekseer::Vector3D(up.x, up.y, up.z)));
 
 	// エフェクトの描画開始処理を行う。
 	EffectCtrl.Render->BeginRendering();
@@ -192,7 +213,7 @@ void SetEffect(D3DXVECTOR3 Pos, int EffectType)
 {
 	int Effect_No = 0;
 
-	for (Effect_No = 0; Effect_No < EFFECT_MAX; Effect_No++)
+	for (Effect_No = 0; Effect_No < EffectMax; Effect_No++)
 	{
 		if (Effect[Effect_No].use == false)
 		{

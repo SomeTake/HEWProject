@@ -13,8 +13,11 @@
 #include "Babel.h"
 #include "Kumatyang.h"
 #include "YakiYaki.h"
+<<<<<<< HEAD
 #include "Meshwall.h"
 #include "Effect.h"
+=======
+>>>>>>> parent of e81f7cc... Effect
 
 //*****************************************************************************
 // ƒOƒ[ƒoƒ‹•Ï”
@@ -76,8 +79,11 @@ void UpdateGame(void)
 	UpdateBabel();
 	UpdateKumatyang();
 	UpdateYakiYaki();
+<<<<<<< HEAD
 	UpdateMeshWall();
 	UpdateEffect();
+=======
+>>>>>>> parent of e81f7cc... Effect
 
 }
 
@@ -95,7 +101,10 @@ void DrawGame(void)
 	DrawBabel();
 	DrawKumatyang();
 	DrawYakiYaki();
+<<<<<<< HEAD
 	DrawEffect();
+=======
+>>>>>>> parent of e81f7cc... Effect
 
 }
 

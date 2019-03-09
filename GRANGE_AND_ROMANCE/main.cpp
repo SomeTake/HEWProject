@@ -421,6 +421,9 @@ void Update(void)
 		// ゲーム更新
 		UpdateGame();
 
+		// エフェクト更新
+		UpdateEffect();
+
 		if (GetKeyboardTrigger(DIK_RETURN))
 		{// Enter押したら、ステージを切り替える
 			SetStage(STAGE_ENDING);
@@ -476,6 +479,9 @@ void Draw(void)
 
 			// ゲーム描画
 			DrawGame();
+
+			//エフェクト描画
+			DrawEffect();
 
 			break;
 
