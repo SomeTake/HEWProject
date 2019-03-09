@@ -115,6 +115,53 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationModel.h" />
+    <ClInclude Include="Babel.h" />
+    <ClInclude Include="Blackhole.h" />
+    <ClInclude Include="CAllocateHierarchy.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="D3DXAnimation.h" />
+    <ClInclude Include="Debugproc.h" />
+    <ClInclude Include="Effect.h" />
+    <ClInclude Include="Ending.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Gauge.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Kumatyang.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="Meshfield.h" />
+    <ClInclude Include="Onna.h" />
+    <ClInclude Include="Opening.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Struct.h" />
+    <ClInclude Include="Title.h" />
+    <ClInclude Include="YakiYaki.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AnimationModel.cpp" />
+    <ClCompile Include="Babel.cpp" />
+    <ClCompile Include="Blackhole.cpp" />
+    <ClCompile Include="CAllocateHierarchy.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="D3DXAnimation.cpp" />
+    <ClCompile Include="Debugproc.cpp" />
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="Ending.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Gauge.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Kumatyang.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Meshfield.cpp" />
+    <ClCompile Include="Onna.cpp" />
+    <ClCompile Include="Opening.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Title.cpp" />
+    <ClCompile Include="YakiYaki.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
