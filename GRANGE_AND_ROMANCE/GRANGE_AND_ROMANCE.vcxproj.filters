@@ -99,6 +99,9 @@
     <ClCompile Include="YakiYaki.cpp">
       <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
+    <ClCompile Include="Meshwall.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ending.h">
@@ -168,6 +171,9 @@
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
     <ClInclude Include="YakiYaki.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshwall.h">
       <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
   </ItemGroup>
