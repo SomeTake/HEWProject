@@ -5,10 +5,16 @@
 //
 //=============================================================================
 #include "Main.h"
+#include "Struct.h"
 #include "Player.h"
 #include "Input.h"
 #include "Camera.h"
 #include "D3DXAnimation.h"
+#include "Effect.h"
+#include "Onna.h"
+#include "Blackhole.h"
+#include "Debugproc.h"
+#include "Game.h"
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -37,9 +43,8 @@ HRESULT InitPlayer(int type)
 		playerWk[pn].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 		// ステータス等の初期設定
-		playerWk[pn].HP = 0;
+		playerWk[pn].HP = PLAYER_HP_MAX;
 		playerWk[pn].HPzan = playerWk[pn].HP;
-		playerWk[pn].SP = 0;
 		playerWk[pn].reverse = false;
 	}
 
@@ -145,6 +150,16 @@ HRESULT InitPlayer(int type)
 				playerWk[pn].Animation->SetShiftTime(playerWk[pn].Animation, i, Data[i].ShiftTime);
 			}
 		}
+
+		for (int pn = 0; pn < PLAYER_NUM; pn++)
+		{
+			// 当たり判定の初期化
+			for (int i = 0; i < HIT_CHECK_NUM; i++)
+			{
+				D3DXMATRIX Mtx = GetBoneMatrix(playerWk[pn].Animation, CharaHitPos[i]);
+				InitCollision(0, &playerWk[pn].Collision[i], Mtx, HitRadius[i]);
+			}
+		}
 	}
 	else
 	{
@@ -164,6 +179,12 @@ void UninitPlayer(void)
 {
 	for (int pn = 0; pn < PLAYER_NUM; pn++)
 	{
+		// 当たり判定をリリース
+		for (int i = 0; i < HIT_CHECK_NUM; i++)
+		{
+			UninitCollision(&playerWk[pn].Collision[i]);
+		}
+
 		// アニメーションをリリース
 		playerWk[pn].Animation->UninitAnimation(playerWk[pn].Animation);
 	}
@@ -174,6 +195,13 @@ void UninitPlayer(void)
 //=============================================================================
 void UpdatePlayer(void)
 {
+	ENEMY *OnnaWk = GetOnna(0);
+	ENEMY *BlackholeWk = GetBlackhole(0);
+
+#ifdef _DEBUG
+	PrintDebugProc("ヒットフラグ %s", playerWk[0].HitFrag ? "true" : "false");
+#endif
+
 	for (int pn = 0; pn < PLAYER_NUM; pn++)
 	{
 		// アニメーションを更新
@@ -194,6 +222,46 @@ void UpdatePlayer(void)
 
 		// 座標移動
 		MovePlayer(pn);
+
+		// 当たり判定座標の更新
+		D3DXMATRIX Mtx;
+		for (int i = 0; i < HIT_CHECK_NUM; i++)
+		{
+			Mtx = GetBoneMatrix(playerWk[pn].Animation, CharaHitPos[i]);
+			UpdateCollision(&playerWk[pn].Collision[i], Mtx);
+		}
+
+		// 攻撃による当たり判定
+		if (playerWk[pn].HitFrag == false)
+		{
+			// 女.xとの当たり判定
+			for (int num = 0; num < ONNA_NUM; num++)
+			{
+				if (OnnaWk[num].use == true)
+				{
+					if (HitCheckPToE(&playerWk[pn], &OnnaWk[num]) == true)
+					{
+						// 当たったあとの動き
+						playerWk[pn].HitFrag = true;
+						HitAction(pn, &OnnaWk[num]);
+					}
+				}
+			}
+
+			// ブラックホールくんとの当たり判定
+			for (int num = 0; num < BLACKHOLE_NUM; num++)
+			{
+				if (BlackholeWk[num].use == true)
+				{
+					if (HitCheckPToE(&playerWk[pn], &BlackholeWk[num]) == true)
+					{
+						// 当たったあとの動き
+						playerWk[num].HitFrag = true;
+						HitAction(pn, &BlackholeWk[num]);
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -234,6 +302,15 @@ void DrawPlayer(void)
 
 		// マテリアルをデフォルトに戻す
 		pDevice->SetMaterial(&matDef);
+
+#ifdef _DEBUG
+		for (int i = 0; i < HIT_CHECK_NUM; i++)
+		{
+			// プレイヤーの当たり判定用ボールを描画する
+			DrawCollision(&playerWk[pn].Collision[i]);
+		}
+#endif
+
 	}
 }
 
@@ -462,10 +539,14 @@ void ControlPlayer(int pn)
 		break;
 	case Jab:
 		// 攻撃ヒット時追加入力でストレート攻撃が出る
-		// ストレート PS4□
-		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(pn, BUTTON_A))
+		if (playerWk[pn].HitFrag)
 		{
-			playerWk[pn].Animation->ChangeAnimation(playerWk[pn].Animation, Straight, Data[Straight].Spd);
+			// ストレート PS4□
+			if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(pn, BUTTON_A))
+			{
+				playerWk[pn].Animation->ChangeAnimation(playerWk[pn].Animation, Straight, Data[Straight].Spd);
+				playerWk[pn].HitFrag = false;
+			}
 		}
 		// アニメーション終了で待機に戻る
 		if (playerWk[pn].Animation->MotionEnd == true)
@@ -476,12 +557,15 @@ void ControlPlayer(int pn)
 		break;
 	case Straight:
 		// 攻撃ヒット時追加入力でアッパー攻撃が出る
-		// アッパー PS4□
-		if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(pn, BUTTON_A))
+		if (playerWk[pn].HitFrag)
 		{
-			playerWk[pn].Animation->ChangeAnimation(playerWk[pn].Animation, Upper, Data[Upper].Spd);
+			// アッパー PS4□
+			if (GetKeyboardTrigger(DIK_J) || IsButtonTriggered(pn, BUTTON_A))
+			{
+				playerWk[pn].Animation->ChangeAnimation(playerWk[pn].Animation, Upper, Data[Upper].Spd);
+				playerWk[pn].HitFrag = false;
+			}
 		}
-
 		// アニメーション終了で待機に戻る
 		if (playerWk[pn].Animation->MotionEnd == true)
 		{
@@ -634,4 +718,59 @@ void MovePlayer(int pn)
 	playerWk[pn].move.x = 0.0f;
 	playerWk[pn].move.y = 0.0f;
 	playerWk[pn].move.z = 0.0f;
+}
+
+//=============================================================================
+// 攻撃ヒット時のアクション
+//=============================================================================
+void HitAction(int pn, ENEMY *enemy)
+{
+	switch (playerWk[pn].Animation->CurrentAnimID)
+	{
+	case Jab:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Jab].Damage);
+		// SE
+		// エフェクト
+		SetEffect(playerWk[pn].Collision[LeftHand].pos, HitEffect);
+		break;
+	case Straight:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Straight].Damage);
+		// SE
+		// エフェクト
+		SetEffect(playerWk[pn].Collision[RightHand].pos, HitEffect);
+		break;
+	case Upper:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Upper].Damage);
+		// SE
+		// エフェクト
+		SetEffect(playerWk[pn].Collision[LeftHand].pos, HitEffect);
+		break;
+	case Kick:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Kick].Damage);
+		// SE
+		// エフェクト
+		SetEffect(playerWk[pn].Collision[RightFoot].pos, HitEffect);
+		break;
+	case Pickup:
+		break;
+	case Attackitem:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Attackitem].Damage);
+		// SE
+		// エフェクト
+		break;
+	case Throwitem:
+		// ダメージ
+		AddDamageEnemy(enemy, Data[Throwitem].Damage);
+		// SE
+		// エフェクト
+		break;
+	default:
+		break;
+	}
+
 }

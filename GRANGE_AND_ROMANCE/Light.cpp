@@ -31,10 +31,10 @@ void InitLight(void)
 	Light[0].Type = D3DLIGHT_DIRECTIONAL;
 
 	// ライト0の拡散光の設定
-	Light[0].Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	Light[0].Diffuse = D3DXCOLOR(10.0f, 10.0f, 10.0f, 10.0f);
 
 	// ライト0の環境光の設定
-	Light[0].Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f);
+	Light[0].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// ライト0の方向の設定
 	vecDir = D3DXVECTOR3(0.20f, -0.60f, 0.80f);
@@ -54,10 +54,10 @@ void InitLight(void)
 	Light[1].Type = D3DLIGHT_DIRECTIONAL;
 
 	// ライト1の拡散光の設定
-	Light[1].Diffuse = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);
+	Light[1].Diffuse = D3DXCOLOR(10.0f, 10.0f, 10.0f, 1.0f);
 
 	// ライト1の環境光の設定
-	Light[1].Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f);
+	Light[1].Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// ライト1の方向の設定
 	vecDir = D3DXVECTOR3(-0.20f, 1.00f, -0.50f);

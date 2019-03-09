@@ -14,6 +14,9 @@
 #include "Game.h"
 #include "Ending.h"
 #include "Debugproc.h"
+#include "Onna.h"
+#include "Effect.h"
+#include "Blackhole.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -32,7 +35,7 @@ void Draw(void);
 #ifdef _DEBUG
 void DrawFPS(void);
 #endif
-int	g_nStage = STAGE_OPENING;						// ステージ番号
+int	g_nStage = STAGE_GAME;						// ステージ番号
 bool SetWindowCenter(HWND hWnd);
 
 //*****************************************************************************
@@ -311,6 +314,8 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	D3DXCreateFont(g_pD3DDevice, 18, 0, 0, 0, FALSE, SHIFTJIS_CHARSET,
 		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "Terminal", &g_pD3DXFont);
 
+	// デバッグ
+	InitDebugProc();
 
 #endif
 
@@ -322,6 +327,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	InitTitle();
 	InitGame();
 	InitEnding();
+	InitEffect(true);
 
 	return S_OK;
 }
@@ -337,6 +343,9 @@ void Uninit(void)
 		g_pD3DXFont->Release();
 		g_pD3DXFont = NULL;
 	}
+
+	// デバッグ
+	UninitDebugProc();
 
 #endif
 	if (g_pD3DDevice != NULL)
@@ -366,6 +375,9 @@ void Uninit(void)
 	// エンディングの終了処理
 	UninitEnding();
 
+	//エフェクトの終了処理
+	UninitEffect();
+
 }
 
 
@@ -375,6 +387,7 @@ void Uninit(void)
 void Update(void)
 {
 #ifdef _DEBUG
+	UpdateDebugProc();
 
 #endif
 
@@ -438,6 +451,10 @@ void Draw(void)
 	{
 		SetCamera(0);
 
+#ifdef _DEBUG
+		DrawDebugProc();
+#endif
+
 		// 画面遷移
 		switch (g_nStage)
 		{
@@ -484,6 +501,8 @@ void Draw(void)
 void ReInit(void)
 {
 	InitPlayer(1);
+	InitOnna(1);
+	InitBlackhole(1);
 }
 
 //=============================================================================
@@ -559,4 +578,13 @@ bool SetWindowCenter(HWND hWnd)
 							(SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER)	//	ウィンドウ位置のオプション：ウィンドウのサイズや、位置の変更に関するフラグを指定
 						);
 
+}
+int CreateRandom(int Minimum, int Maximum)
+{
+	return Minimum + (int)(rand()*(Maximum - Minimum + 1.0f) / (1.0f + RAND_MAX));
+}
+
+float CreateRandomFloat(float Minimum, float Maximum)
+{
+	return Minimum + (int)(rand()*(Maximum - Minimum + 1.0f) / (1.0f + RAND_MAX));
 }

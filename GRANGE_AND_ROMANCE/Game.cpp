@@ -6,6 +6,14 @@
 *******************************************************************************/
 #include "Game.h"
 #include "Player.h"
+#include "Onna.h"
+#include "Gauge.h"
+#include "meshfield.h"
+#include "Blackhole.h"
+#include "Babel.h"
+#include "Kumatyang.h"
+#include "YakiYaki.h"
+#include "Effect.h"
 
 //*****************************************************************************
 // グローバル変数
@@ -16,8 +24,14 @@
 //=============================================================================
 HRESULT InitGame(void)
 {
+	InitMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 16, 16, 80.0f, 80.0f);
 	InitPlayer(0);
-
+	InitOnna(0);
+	InitGauge(0);
+	InitBlackhole(0);
+	InitBabel(0);
+	InitKumatyang(0);
+	InitYakiYaki(0);
 	return S_OK;
 }
 
@@ -26,8 +40,14 @@ HRESULT InitGame(void)
 //=============================================================================
 void UninitGame(void)
 {
-	// モデルの終了処理
+	UninitMeshField();
 	UninitPlayer();
+	UninitOnna();
+	UninitGauge();
+	UninitBlackhole();
+	UninitBabel();
+	UninitKumatyang();
+	UninitYakiYaki();
 
 }
 
@@ -36,7 +56,18 @@ void UninitGame(void)
 //=============================================================================
 void UpdateGame(void)
 {
+	UpdateMeshField();
 	UpdatePlayer();
+	UpdateOnna();
+	UpdateGauge();
+	UpdateBlackhole();
+	UpdateBabel();
+	UpdateKumatyang();
+	UpdateYakiYaki();
+
+	// エフェクト更新
+	UpdateEffect();
+
 }
 
 //=============================================================================
@@ -44,7 +75,44 @@ void UpdateGame(void)
 //=============================================================================
 void DrawGame(void)
 {
-	// プレイヤー描画
+	DrawMeshField();
+
 	DrawPlayer();
+	DrawOnna();
+	DrawGauge();
+	DrawBlackhole();
+	DrawBabel();
+	DrawKumatyang();
+	DrawYakiYaki();
+
+	//エフェクト描画
+	DrawEffect();
+
 }
 
+//=============================================================================
+// エネミーにダメージを与える
+//=============================================================================
+void AddDamageEnemy(ENEMY *enemy, int damage)
+{
+	enemy->HPzan -= damage;
+
+	if (enemy->HPzan < 0)
+	{
+		enemy->HPzan = 0;
+	}
+}
+
+//=============================================================================
+// プレイヤーにダメージを与える
+//=============================================================================
+void AddDamagePlayer(CHARA *player, int damage)
+{
+	player->HPzan -= damage;
+
+	if (player->HPzan < 0)
+	{
+		player->HPzan = 0;
+	}
+
+}

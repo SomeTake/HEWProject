@@ -8,6 +8,7 @@
 #define _PLAYER_H_
 
 #include "D3DXAnimation.h"
+#include "Collision.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -16,6 +17,7 @@
 #define PLAYER_NUM		(2)									// プレイヤーの数
 
 #define FIRST_PLAYER_POS	D3DXVECTOR3(0.0f, 0.0f, 0.0f)	// 初期位置
+#define PLAYER_HP_MAX	(200)
 
 #define VALUE_FRONTWALK	(1.50f)								// 前歩き移動量
 #define	VALUE_SIDESTEP	(1.00f)								// 横歩き移動量
@@ -24,20 +26,6 @@
 //*****************************************************************************
 // グローバル変数
 //*****************************************************************************
-// キャラクターのデータを管理する構造体
-typedef struct {
-	D3DXVECTOR3			pos;				// モデルの位置
-	D3DXVECTOR3			move;				// モデルの移動量
-	D3DXVECTOR3			rot;				// 現在の向き
-	D3DXVECTOR3			scl;				// モデルの大きさ(スケール)
-	int					HP;					// 体力
-	int					SP;					// SPゲージ
-	int					HPzan;				// 残り体力
-	D3DXANIMATION		*Animation;			// アニメーション
-	bool				reverse;			// 向き反転フラグ
-	bool				HitFrag;			// 攻撃が当たったかどうか判定するフラグ
-	bool				UseItem;			// アイテムを所持しているかどうか判定するフラグ
-}CHARA;
 
 // キャラクターのアニメーション番号
 static const char* CharaStateAnim[] =
@@ -92,17 +80,70 @@ static BATTLEDATA Data[AnimMax] = {
 { 0, 1.5f, 0.1f, 0, 0 },		// Walk
 { 0, 1.5f, 0.1f, 0, 0 },		// Rightwalk
 { 0, 1.5f, 0.1f, 0, 0 },		// Leftwalk
-{ 0, 1.5f, 0.1f, 0, 0 },		// Jab
-{ 0, 1.5f, 0.1f, 0, 0 },		// Straight
-{ 0, 2.0f, 0.1f, 0, 0 },		// Upper
-{ 0, 1.5f, 0.1f, 0, 0 },		// Kick
+{ 10, 1.5f, 0.1f, 0, 0 },		// Jab
+{ 10, 1.5f, 0.1f, 0, 0 },		// Straight
+{ 10, 2.0f, 0.1f, 0, 0 },		// Upper
+{ 10, 1.5f, 0.1f, 0, 0 },		// Kick
 { 0, 2.0f, 0.1f, 0, 0 },		// Pickup
 { 0, 1.0f, 0.1f, 0, 0 },		// Idleitem
-{ 0, 1.5f, 0.1f, 0, 0 },		// Attackitem
-{ 0, 1.5f, 0.1f, 0, 0 },		// Throwitem
+{ 15, 1.5f, 0.1f, 0, 0 },		// Attackitem
+{ 20, 1.5f, 0.1f, 0, 0 },		// Throwitem
 { 0, 1.5f, 0.1f, 0, 0 },		// Reaction
 };
 
+// 当たり判定を発生させる場所
+static const char* CharaHitPos[] =
+{
+	"Hips",				// 尻
+	"Neck",				// 首
+	"Head",				// 頭
+	"LeftShoulder",		// 左肩
+	"RightShoulder",	// 右肩
+	"LeftHand",			// 左手
+	"RightHand",		// 右手
+	"LeftFoot",			// 左足
+	"RightFoot",		// 右足
+	"LeftForeArm",		// 左肘
+	"RightForeArm",		// 右肘
+	"LeftLeg",			// 左膝
+	"RightLeg"			// 右膝
+};
+
+// 当たり判定発生場所と連動（CharaHitPos）
+enum CharaHitNum
+{
+	Hips,
+	Neck,
+	Head,
+	LeftShoulder,
+	RightShoulder,
+	LeftHand,
+	RightHand,
+	LeftFoot,
+	RightFoot,
+	LeftForeArm,
+	RightForeArm,
+	LeftLeg,
+	RightLeg,
+};
+
+// 当たり判定の半径（上の発生場所と連動）
+static float HitRadius[] =
+{
+	10.0f,
+	10.0f,
+	10.0f,
+	5.0f,
+	5.0f,
+	5.0f,
+	5.0f,
+	7.0f,
+	7.0f,
+	5.0f,
+	5.0f,
+	7.0f,
+	7.0f
+};
 
 //*****************************************************************************
 // プロトタイプ宣言
@@ -112,7 +153,8 @@ void UninitPlayer(void);
 void UpdatePlayer(void);
 void DrawPlayer(void);
 CHARA *GetPlayer(int pn);
-void ControlPlayer(int pn);		// 操作
-void MovePlayer(int pn);		// 座標移動
+void ControlPlayer(int pn);						// 操作
+void MovePlayer(int pn);						// 座標移動
+void HitAction(int pn, ENEMY *enemy);			// 攻撃ヒット時のアクション
 
 #endif

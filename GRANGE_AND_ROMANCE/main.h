@@ -20,6 +20,11 @@
 #include <tchar.h>
 #include <stdio.h>
 
+// Effekseer
+#include <Effekseer.h>
+#include <EffekseerRendererDX9.h>
+#include <EffekseerSoundXAudio2.h>
+
 #define DIRECTINPUT_VERSION (0x0800)	// 警告対策
 #include "dinput.h"
 
@@ -32,6 +37,16 @@
 #pragma comment (lib, "dxguid.lib")
 #pragma comment (lib, "dinput8.lib")
 #pragma comment (lib, "winmm.lib")
+#endif
+
+#if _DEBUG
+#pragma comment(lib, "Effekseer.lib" )
+#pragma comment(lib, "EffekseerRendererDX9.lib" )
+#pragma comment(lib, "EffekseerSoundXAudio2.lib" )
+#else
+#pragma comment(lib, "Release/Effekseer.lib" )
+#pragma comment(lib, "Release/EffekseerRendererDX9.lib" )
+#pragma comment(lib, "Release/EffekseerSoundXAudio2.lib" )
 #endif
 
 //*****************************************************************************
@@ -66,6 +81,10 @@
 #define SAFE_RELEASE(object)		{if(object){(object)->Release();	(object)=NULL;}}
 
 #define GetMonitorRect(rc) SystemParametersInfo(SPI_GETWORKAREA, 0, rc, 0)	// モニター矩形
+
+#define DXtoEffekVec(Vec)	::Effekseer::Vector3D(Vec.x, Vec.y, Vec.z)
+// malloc,calloc
+#define SafeFree(Object)		{ if (Object) { free(Object);			(Object)=NULL; } }
 
 //*****************************************************************************
 // 構造体定義
@@ -105,5 +124,7 @@ LPDIRECT3DDEVICE9 GetDevice(void);	// デバイスを取得する
 void SetStage(int stage);			// ステージの変更
 int GetStage(void);					// 現在のステージを取得
 void ReInit(void);					// 再初期化
+int CreateRandom(int Minimum, int Maximum);
+float CreateRandomFloat(float Minimum, float Maximum);
 
 #endif

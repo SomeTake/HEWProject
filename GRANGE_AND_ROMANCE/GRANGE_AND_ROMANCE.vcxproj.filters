@@ -72,15 +72,36 @@
     <ClCompile Include="Debugproc.cpp">
       <Filter>ソース ファイル\system</Filter>
     </ClCompile>
-    <ClCompile Include="Hit_Point_Gage.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Gauge.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="meshfield.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Onna.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Blackhole.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Babel.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Kumatyang.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
+    </ClCompile>
+    <ClCompile Include="YakiYaki.cpp">
+      <Filter>ソース ファイル\3Dobject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ending.h">
-      <Filter>ヘッダー ファイル\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
       <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
     <ClInclude Include="Opening.h">
@@ -116,8 +137,38 @@
     <ClInclude Include="Debugproc.h">
       <Filter>ヘッダー ファイル\system</Filter>
     </ClInclude>
-    <ClInclude Include="Hit_Point_Gage.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Collision.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Gauge.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="meshfield.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Onna.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Blackhole.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>ヘッダー ファイル\system</Filter>
+    </ClInclude>
+    <ClInclude Include="Babel.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Kumatyang.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
+    </ClInclude>
+    <ClInclude Include="YakiYaki.h">
+      <Filter>ヘッダー ファイル\3Dobject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
