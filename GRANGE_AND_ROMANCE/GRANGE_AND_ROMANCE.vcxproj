@@ -30,6 +30,7 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Ending.cpp" />
     <ClCompile Include="Kumatyang.cpp" />
+    <ClCompile Include="Meshwall.cpp" />
     <ClCompile Include="Onna.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gauge.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Ending.h" />
     <ClInclude Include="Kumatyang.h" />
+    <ClInclude Include="Meshwall.h" />
     <ClInclude Include="Onna.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gauge.h" />
