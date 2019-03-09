@@ -13,11 +13,8 @@
 #include "Babel.h"
 #include "Kumatyang.h"
 #include "YakiYaki.h"
-<<<<<<< HEAD
-#include "Meshwall.h"
+#include "Meshfield.h"
 #include "Effect.h"
-=======
->>>>>>> parent of c5e9caf... uni
 
 //*****************************************************************************
 // ƒOƒ[ƒoƒ‹•Ï”
@@ -52,10 +49,7 @@ void UninitGame(void)
 	UninitBabel();
 	UninitKumatyang();
 	UninitYakiYaki();
-<<<<<<< HEAD
-	UninitMeshWall();
-=======
->>>>>>> parent of c5e9caf... uni
+	UninitMeshField();
 
 }
 
@@ -72,11 +66,8 @@ void UpdateGame(void)
 	UpdateBabel();
 	UpdateKumatyang();
 	UpdateYakiYaki();
-<<<<<<< HEAD
-	UpdateMeshWall();
+	UpdateMeshField();
 	UpdateEffect();
-=======
->>>>>>> parent of c5e9caf... uni
 
 }
 
