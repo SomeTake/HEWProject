@@ -46,9 +46,9 @@ HRESULT InitEffect(bool FirstInit);
 void UninitEffect(void);
 void UpdateEffect(void);
 void DrawEffect(void);
-void SetEffect(D3DXVECTOR3 Pos, D3DXVECTOR3 PPos, int EffectType, int no);
-void TurnPhaseEffect(void);
+void SetEffect(D3DXVECTOR3 Pos, int EffectType);
 HRESULT SafeLoadEffect(Effekseer::Manager *Manager, Effekseer::Effect **Effect, const EFK_CHAR* SrcPath, const char* ErrorSrc);
 EFFECT *GetEffect(int no);
+EFFECTCONTROLLER *GetEffectCtrl(void);
 
 #endif

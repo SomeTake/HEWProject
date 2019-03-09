@@ -35,7 +35,7 @@ void Draw(void);
 #ifdef _DEBUG
 void DrawFPS(void);
 #endif
-int	g_nStage = STAGE_OPENING;						// ステージ番号
+int	g_nStage = STAGE_GAME;						// ステージ番号
 bool SetWindowCenter(HWND hWnd);
 
 //*****************************************************************************
@@ -314,6 +314,8 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	D3DXCreateFont(g_pD3DDevice, 18, 0, 0, 0, FALSE, SHIFTJIS_CHARSET,
 		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "Terminal", &g_pD3DXFont);
 
+	// デバッグ
+	InitDebugProc();
 
 #endif
 
@@ -341,6 +343,9 @@ void Uninit(void)
 		g_pD3DXFont->Release();
 		g_pD3DXFont = NULL;
 	}
+
+	// デバッグ
+	UninitDebugProc();
 
 #endif
 	if (g_pD3DDevice != NULL)
@@ -382,6 +387,7 @@ void Uninit(void)
 void Update(void)
 {
 #ifdef _DEBUG
+	UpdateDebugProc();
 
 #endif
 
@@ -447,6 +453,10 @@ void Draw(void)
 	if (SUCCEEDED(g_pD3DDevice->BeginScene()))
 	{
 		SetCamera(0);
+
+#ifdef _DEBUG
+		DrawDebugProc();
+#endif
 
 		// 画面遷移
 		switch (g_nStage)

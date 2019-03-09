@@ -14,8 +14,8 @@
 // マクロ定義
 //*****************************************************************************
 #define	BLACKHOLE_XFILE		"data/MODEL/black.x"	// 読み込むモデル名
-#define BLACKHOLE_NUM		(10)					// エネミーの数
-#define BLACKHOLE_HP_MAX	(10)
+#define BLACKHOLE_NUM		(1)					// エネミーの数
+#define BLACKHOLE_HP_MAX	(50)
 #define BLACKHOLE_DIRECTION	(200.0f)
 #define BLACKHOLE_SCALE		(3.0f)
 
@@ -30,5 +30,6 @@ HRESULT InitBlackhole(int type);
 void UninitBlackhole(void);
 void UpdateBlackhole(void);
 void DrawBlackhole(void);
+ENEMY *GetBlackhole(int en);
 
 #endif

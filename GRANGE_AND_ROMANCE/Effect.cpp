@@ -209,30 +209,23 @@ void DrawEffect(void)
 //=============================================================================
 // エフェクトを設置する
 //=============================================================================
-void SetEffect(D3DXVECTOR3 Pos, int EffectType, int no)
+void SetEffect(D3DXVECTOR3 Pos, int EffectType)
 {
-
 	int Effect_No = 0;
 
 	for (Effect_No = 0; Effect_No < EffectMax; Effect_No++)
 	{
-		if (Effect[no].use == false)
+		if (Effect[Effect_No].use == false)
 		{
-			Effect[no].ID = EffectCtrl.Manager->Play(EffectCtrl.Effect[EffectType], Pos.x, Pos.y , Pos.z );
-			Effect[no].pos = Pos;
-			Effect[no].EffectType = EffectType;
-			Effect[no].use = true;
+			Effect[Effect_No].ID = EffectCtrl.Manager->Play(EffectCtrl.Effect[EffectType], Pos.x, Pos.y, Pos.z);
+			Effect[Effect_No].pos = Pos;
+			Effect[Effect_No].EffectType = EffectType;
+			Effect[Effect_No].use = true;
+			break;
 		}
 	}
 
 	return;
-}
-
-//=============================================================================
-// ボスは二段階に入る時のエフェクト
-//=============================================================================
-void TurnPhaseEffect(void)
-{
 }
 
 //=============================================================================
