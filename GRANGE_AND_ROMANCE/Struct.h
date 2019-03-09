@@ -56,6 +56,7 @@ typedef struct {
 	D3DXVECTOR3			scl;				// モデルの大きさ(スケール)
 	int					HP;					// 体力
 	int					HPzan;				// 残り体力
+	D3DXVECTOR3			Opos;				// ONNA位置
 	bool				use;				// 使用中フラグ
 }ENEMY;
 

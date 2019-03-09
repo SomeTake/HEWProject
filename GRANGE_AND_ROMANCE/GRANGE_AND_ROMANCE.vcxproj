@@ -26,9 +26,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="D3DXAnimation.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="Hit_Point_Gage.cpp" />
-=======
     <ClCompile Include="Debugproc.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Ending.cpp" />
@@ -36,11 +33,7 @@
     <ClCompile Include="Meshwall.cpp" />
     <ClCompile Include="Onna.cpp" />
     <ClCompile Include="Game.cpp" />
-<<<<<<< HEAD
->>>>>>> master
-=======
     <ClCompile Include="Gauge.cpp" />
->>>>>>> master
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -58,9 +51,6 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="D3DXAnimation.h" />
-<<<<<<< HEAD
-    <ClInclude Include="Hit_Point_Gage.h" />
-=======
     <ClInclude Include="Debugproc.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Ending.h" />
@@ -68,11 +58,7 @@
     <ClInclude Include="Meshwall.h" />
     <ClInclude Include="Onna.h" />
     <ClInclude Include="Game.h" />
-<<<<<<< HEAD
->>>>>>> master
-=======
     <ClInclude Include="Gauge.h" />
->>>>>>> master
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Main.h" />
@@ -143,8 +129,8 @@
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\janbo\Downloads\EffekseerRuntime140\EffekseerRuntime140\Compiled\lib\VS2015\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\wakin.DESKTOP-EOU4OC3\Desktop\HEWProject\GRANGE_AND_ROMANCE\Effekseer\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\wakin.DESKTOP-EOU4OC3\Desktop\HEWProject\GRANGE_AND_ROMANCE\Effekseer\lib\VS2015\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\janbo\OneDrive\ドキュメント\GitHub\HEWProject\GRANGE_AND_ROMANCE\Effekseer\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\janbo\OneDrive\ドキュメント\GitHub\HEWProject\GRANGE_AND_ROMANCE\Effekseer\lib\VS2015\Debug;$(LibraryPath)</LibraryPath>
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
